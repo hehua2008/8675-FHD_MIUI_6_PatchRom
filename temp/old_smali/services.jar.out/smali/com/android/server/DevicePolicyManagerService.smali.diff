@@ -1,0 +1,65 @@
+*** ./smali/com/android/server/DevicePolicyManagerService.smali	2015-05-02 01:21:37.436406943 +0800
+--- /home/hgm/MIUI6/8675-FHD/temp/new_smali/services.jar.out/./smali/com/android/server/DevicePolicyManagerService.smali	2015-05-02 01:18:03.888413253 +0800
+***************
+*** 378,425 ****
+  .end method
+  
+  .method private getEncryptionStatus()I
+!     .locals 3
+  
+      .prologue
+!     const-string v1, "ro.crypto.state"
+  
+!     const-string v2, "unsupported"
+! 
+!     invoke-static {v1, v2}, Landroid/os/SystemProperties;->get(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+! 
+!     move-result-object v0
+! 
+!     .local v0, "status":Ljava/lang/String;
+!     const-string v1, "encrypted"
+! 
+!     invoke-virtual {v1, v0}, Ljava/lang/String;->equalsIgnoreCase(Ljava/lang/String;)Z
+! 
+!     move-result v1
+! 
+!     if-eqz v1, :cond_0
+! 
+!     const/4 v1, 0x3
+! 
+!     :goto_0
+!     return v1
+! 
+!     :cond_0
+!     const-string v1, "unencrypted"
+! 
+!     invoke-virtual {v1, v0}, Ljava/lang/String;->equalsIgnoreCase(Ljava/lang/String;)Z
+! 
+!     move-result v1
+! 
+!     if-eqz v1, :cond_1
+! 
+!     const/4 v1, 0x1
+! 
+!     goto :goto_0
+! 
+!     :cond_1
+!     const/4 v1, 0x0
+! 
+!     goto :goto_0
+  .end method
+  
+  .method private getIPowerManager()Landroid/os/IPowerManager;
+--- 378,389 ----
+  .end method
+  
+  .method private getEncryptionStatus()I
+!     .locals 1
+  
+      .prologue
+!     const/4 v0, 0x0
+  
+!     return v0
+  .end method
+  
+  .method private getIPowerManager()Landroid/os/IPowerManager;

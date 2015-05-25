@@ -1,0 +1,19 @@
+*** ./smali/com/android/internal/os/RuntimeInit.smali	2015-05-02 01:21:48.920406604 +0800
+--- /home/hgm/MIUI6/8675-FHD/temp/new_smali/framework2.jar.out/./smali/com/android/internal/os/RuntimeInit.smali	2015-05-02 01:18:15.848412899 +0800
+***************
+*** 167,173 ****
+  
+      invoke-direct {v2}, Lcom/android/internal/logging/AndroidConfig;-><init>()V
+  
+!     invoke-static {}, Lcom/android/internal/os/RuntimeInit;->getDefaultUserAgent()Ljava/lang/String;
+  
+      move-result-object v1
+  
+--- 167,173 ----
+  
+      invoke-direct {v2}, Lcom/android/internal/logging/AndroidConfig;-><init>()V
+  
+!     invoke-static {}, Landroid/miui/HttpClientUtils;->getDefaultUserAgent()Ljava/lang/String;
+  
+      move-result-object v1
+  

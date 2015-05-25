@@ -1,0 +1,43 @@
+*** ./smali/com/android/server/InputMethodManagerService.smali	2015-05-02 01:21:40.716406846 +0800
+--- /home/hgm/MIUI6/8675-FHD/temp/new_smali/services.jar.out/./smali/com/android/server/InputMethodManagerService.smali	2015-05-02 01:18:07.416413148 +0800
+***************
+*** 3186,3191 ****
+--- 3186,3193 ----
+  
+      invoke-virtual {v11, v0}, Landroid/widget/Switch;->setOnCheckedChangeListener(Landroid/widget/CompoundButton$OnCheckedChangeListener;)V
+  
++     invoke-virtual/range {p0 .. p0}, Lcom/android/server/InputMethodManagerService;->removeCustomTitle()V
++ 
+      new-instance v6, Lcom/android/server/InputMethodManagerService$ImeSubtypeListAdapter;
+  
+      const v22, 0x10900a0
+***************
+*** 7001,7006 ****
+--- 7003,7029 ----
+      throw v1
+  .end method
+  
++ .method removeCustomTitle()V
++     .locals 3
++ 
++     .prologue
++     const/4 v2, 0x0
++ 
++     iget-object v0, p0, Lcom/android/server/InputMethodManagerService;->mDialogBuilder:Landroid/app/AlertDialog$Builder;
++ 
++     invoke-virtual {v0, v2}, Landroid/app/AlertDialog$Builder;->setCustomTitle(Landroid/view/View;)Landroid/app/AlertDialog$Builder;
++ 
++     iget-object v0, p0, Lcom/android/server/InputMethodManagerService;->mDialogBuilder:Landroid/app/AlertDialog$Builder;
++ 
++     sget v1, Lcom/android/internal/R$string;->select_input_method:I
++ 
++     invoke-virtual {v0, v1}, Landroid/app/AlertDialog$Builder;->setTitle(I)Landroid/app/AlertDialog$Builder;
++ 
++     iput-object v2, p0, Lcom/android/server/InputMethodManagerService;->mSwitchingDialogTitleView:Landroid/view/View;
++ 
++     return-void
++ .end method
++ 
+  .method requestClientSessionLocked(Lcom/android/server/InputMethodManagerService$ClientState;)V
+      .locals 9
+      .param p1, "cs"    # Lcom/android/server/InputMethodManagerService$ClientState;

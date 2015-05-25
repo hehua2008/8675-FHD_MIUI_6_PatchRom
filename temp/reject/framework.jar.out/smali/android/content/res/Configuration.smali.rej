@@ -1,0 +1,179 @@
+*** Configuration.smali	2015-05-02 01:20:38.708408678 +0800
+--- Configuration.smali	2015-05-02 01:17:00.652415121 +0800
+***************
+*** 260,294 ****
+  .end method
+  
+  .method public constructor <init>()V
+!     .locals 0
+  
+      .prologue
+      invoke-direct {p0}, Ljava/lang/Object;-><init>()V
+  
+      invoke-virtual {p0}, Landroid/content/res/Configuration;->setToDefaults()V
+  
+      return-void
+  .end method
+  
+  .method public constructor <init>(Landroid/content/res/Configuration;)V
+!     .locals 0
+      .param p1, "o"    # Landroid/content/res/Configuration;
+  
+      .prologue
+      invoke-direct {p0}, Ljava/lang/Object;-><init>()V
+  
+      invoke-virtual {p0, p1}, Landroid/content/res/Configuration;->setTo(Landroid/content/res/Configuration;)V
+  
+      return-void
+  .end method
+  
+  .method private constructor <init>(Landroid/os/Parcel;)V
+!     .locals 0
+      .param p1, "source"    # Landroid/os/Parcel;
+  
+      .prologue
+      invoke-direct {p0}, Ljava/lang/Object;-><init>()V
+  
+      invoke-virtual {p0, p1}, Landroid/content/res/Configuration;->readFromParcel(Landroid/os/Parcel;)V
+  
+      return-void
+--- 262,314 ----
+  .end method
+  
+  .method public constructor <init>()V
+!     .locals 1
+  
+      .prologue
+      invoke-direct {p0}, Ljava/lang/Object;-><init>()V
+  
++     new-instance v0, Landroid/content/res/MiuiConfiguration;
++ 
++     invoke-direct {v0}, Landroid/content/res/MiuiConfiguration;-><init>()V
++ 
++     iput-object v0, p0, Landroid/content/res/Configuration;->extraConfig:Landroid/content/res/MiuiConfiguration;
++ 
+      invoke-virtual {p0}, Landroid/content/res/Configuration;->setToDefaults()V
+  
+      return-void
+  .end method
+  
+  .method public constructor <init>(Landroid/content/res/Configuration;)V
+!     .locals 1
+      .param p1, "o"    # Landroid/content/res/Configuration;
+  
+      .prologue
+      invoke-direct {p0}, Ljava/lang/Object;-><init>()V
+  
++     new-instance v0, Landroid/content/res/MiuiConfiguration;
++ 
++     invoke-direct {v0}, Landroid/content/res/MiuiConfiguration;-><init>()V
++ 
++     iput-object v0, p0, Landroid/content/res/Configuration;->extraConfig:Landroid/content/res/MiuiConfiguration;
++ 
+      invoke-virtual {p0, p1}, Landroid/content/res/Configuration;->setTo(Landroid/content/res/Configuration;)V
+  
+      return-void
+  .end method
+  
+  .method private constructor <init>(Landroid/os/Parcel;)V
+!     .locals 1
+      .param p1, "source"    # Landroid/os/Parcel;
+  
+      .prologue
+      invoke-direct {p0}, Ljava/lang/Object;-><init>()V
+  
++     new-instance v0, Landroid/content/res/MiuiConfiguration;
++ 
++     invoke-direct {v0}, Landroid/content/res/MiuiConfiguration;-><init>()V
++ 
++     iput-object v0, p0, Landroid/content/res/Configuration;->extraConfig:Landroid/content/res/MiuiConfiguration;
++ 
+      invoke-virtual {p0, p1}, Landroid/content/res/Configuration;->readFromParcel(Landroid/os/Parcel;)V
+  
+      return-void
+***************
+*** 1032,1037 ****
+      or-int/lit16 v0, v0, 0x1000
+  
+      :cond_12
+      return v0
+  .end method
+  
+--- 1067,1082 ----
+      or-int/lit16 v0, v0, 0x1000
+  
+      :cond_12
++     iget-object v2, p0, Landroid/content/res/Configuration;->extraConfig:Landroid/content/res/MiuiConfiguration;
++ 
++     iget-object v3, p1, Landroid/content/res/Configuration;->extraConfig:Landroid/content/res/MiuiConfiguration;
++ 
++     invoke-virtual {v2, v3}, Landroid/content/res/MiuiConfiguration;->diff(Landroid/content/res/MiuiConfiguration;)I
++ 
++     move-result v2
++ 
++     or-int/2addr v0, v2
++ 
+      return v0
+  .end method
+  
+***************
+*** 1556,1562 ****
+  .end method
+  
+  .method public setTo(Landroid/content/res/Configuration;)V
+!     .locals 1
+      .param p1, "o"    # Landroid/content/res/Configuration;
+  
+      .prologue
+--- 1615,1621 ----
+  .end method
+  
+  .method public setTo(Landroid/content/res/Configuration;)V
+!     .locals 2
+      .param p1, "o"    # Landroid/content/res/Configuration;
+  
+      .prologue
+***************
+*** 2986,2991 ****
+      iput v2, p0, Landroid/content/res/Configuration;->seq:I
+  
+      :cond_19
+      return v0
+  
+      .end local v1    # "deltaScreenLayoutDir":I
+--- 3063,3078 ----
+      iput v2, p0, Landroid/content/res/Configuration;->seq:I
+  
+      :cond_19
++     iget-object v2, p0, Landroid/content/res/Configuration;->extraConfig:Landroid/content/res/MiuiConfiguration;
++ 
++     iget-object v3, p1, Landroid/content/res/Configuration;->extraConfig:Landroid/content/res/MiuiConfiguration;
++ 
++     invoke-virtual {v2, v3}, Landroid/content/res/MiuiConfiguration;->updateFrom(Landroid/content/res/MiuiConfiguration;)I
++ 
++     move-result v2
++ 
++     or-int/2addr v0, v2
++ 
+      return v0
+  
+      .end local v1    # "deltaScreenLayoutDir":I
+***************
+*** 3107,3112 ****
+  
+      invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeInt(I)V
+  
+      return-void
+  
+      :cond_0
+--- 3194,3203 ----
+  
+      invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeInt(I)V
+  
++     iget-object v0, p0, Landroid/content/res/Configuration;->extraConfig:Landroid/content/res/MiuiConfiguration;
++ 
++     invoke-virtual {v0, p1, p2}, Landroid/content/res/MiuiConfiguration;->writeToParcel(Landroid/os/Parcel;I)V
++ 
+      return-void
+  
+      :cond_0

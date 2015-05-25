@@ -1,0 +1,25 @@
+*** ResolveInfo.smali	2015-05-02 01:20:39.828408645 +0800
+--- ResolveInfo.smali	2015-05-02 01:17:01.548415095 +0800
+***************
+*** 847,855 ****
+  
+      iget-object v3, v1, Landroid/content/pm/ComponentInfo;->packageName:Ljava/lang/String;
+  
+!     iget v4, p0, Landroid/content/pm/ResolveInfo;->icon:I
+  
+!     invoke-virtual {p1, v3, v4, v0}, Landroid/content/pm/PackageManager;->getDrawable(Ljava/lang/String;ILandroid/content/pm/ApplicationInfo;)Landroid/graphics/drawable/Drawable;
+  
+      move-result-object v2
+  
+--- 851,861 ----
+  
+      iget-object v3, v1, Landroid/content/pm/ComponentInfo;->packageName:Ljava/lang/String;
+  
+!     iget-object v4, v1, Landroid/content/pm/ComponentInfo;->name:Ljava/lang/String;
+! 
+!     iget v5, p0, Landroid/content/pm/ResolveInfo;->icon:I
+  
+!     invoke-static {p1, v3, v4, v5, v0}, Landroid/app/MiuiThemeHelper;->getDrawable(Landroid/content/pm/PackageManager;Ljava/lang/String;Ljava/lang/String;ILandroid/content/pm/ApplicationInfo;)Landroid/graphics/drawable/Drawable;
+  
+      move-result-object v2
+  

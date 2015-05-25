@@ -1,0 +1,19 @@
+*** WifiConfiguration$PairwiseCipher.smali	2015-05-02 01:21:05.456407888 +0800
+--- WifiConfiguration$PairwiseCipher.smali	2015-05-02 01:17:29.528414268 +0800
+***************
+*** 31,37 ****
+      .locals 3
+  
+      .prologue
+!     const/4 v0, 0x3
+  
+      new-array v0, v0, [Ljava/lang/String;
+  
+--- 31,37 ----
+      .locals 3
+  
+      .prologue
+!     const/4 v0, 0x4
+  
+      new-array v0, v0, [Ljava/lang/String;
+  

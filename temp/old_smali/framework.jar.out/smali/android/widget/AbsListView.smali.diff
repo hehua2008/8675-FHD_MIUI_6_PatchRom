@@ -1,0 +1,325 @@
+*** ./smali/android/widget/AbsListView.smali	2015-05-02 01:21:21.656407409 +0800
+--- /home/hgm/MIUI6/8675-FHD/temp/new_smali/framework.jar.out/./smali/android/widget/AbsListView.smali	2015-05-02 01:17:47.864413726 +0800
+***************
+*** 124,129 ****
+--- 124,131 ----
+  
+  .field mAdapterHasStableIds:Z
+  
++ .field mAnimatorSet:Landroid/animation/AnimatorSet;
++ 
+  .field private mCacheColorHint:I
+  
+  .field mCachingActive:Z
+***************
+*** 163,168 ****
+--- 165,172 ----
+  
+  .field private mDirection:I
+  
++ .field mDownMotionY:I
++ 
+  .field mDrawSelectorOnTop:Z
+  
+  .field private mEdgeGlowBottom:Landroid/widget/EdgeEffect;
+***************
+*** 193,202 ****
+--- 197,212 ----
+  
+  .field private mGlowPaddingRight:I
+  
++ .field mInertia:I
++ 
+  .field private mIsChildViewEnabled:Z
+  
+  .field final mIsScrap:[Z
+  
++ .field mIsShortList:Z
++ 
++ .field mIsTouching:Z
++ 
+  .field private mLastAccessibilityScrollEventFromIndex:I
+  
+  .field private mLastAccessibilityScrollEventToIndex:I
+***************
+*** 233,238 ****
+--- 243,250 ----
+  
+  .field mMultiChoiceModeCallback:Landroid/widget/AbsListView$MultiChoiceModeWrapper;
+  
++ .field mOffsetRevise:I
++ 
+  .field private mOnScrollListener:Landroid/widget/AbsListView$OnScrollListener;
+  
+  .field mOverflingDistance:I
+***************
+*** 421,426 ****
+--- 433,444 ----
+  
+      iput v2, p0, Landroid/widget/AbsListView;->mDirection:I
+  
++     iput v2, p0, Landroid/widget/AbsListView;->mDownMotionY:I
++ 
++     iput v2, p0, Landroid/widget/AbsListView;->mInertia:I
++ 
++     iput-boolean v2, p0, Landroid/widget/AbsListView;->mIsTouching:Z
++ 
+      invoke-direct {p0}, Landroid/widget/AbsListView;->initAbsListView()V
+  
+      invoke-static {}, Ljava/lang/Thread;->currentThread()Ljava/lang/Thread;
+***************
+*** 587,592 ****
+--- 605,622 ----
+  
+      iput v9, p0, Landroid/widget/AbsListView;->mDirection:I
+  
++     const/4 v9, 0x0
++ 
++     iput v9, p0, Landroid/widget/AbsListView;->mDownMotionY:I
++ 
++     const/4 v9, 0x0
++ 
++     iput v9, p0, Landroid/widget/AbsListView;->mInertia:I
++ 
++     const/4 v9, 0x0
++ 
++     iput-boolean v9, p0, Landroid/widget/AbsListView;->mIsTouching:Z
++ 
+      invoke-direct {p0}, Landroid/widget/AbsListView;->initAbsListView()V
+  
+      invoke-static {}, Ljava/lang/Thread;->currentThread()Ljava/lang/Thread;
+***************
+*** 2047,2052 ****
+--- 2077,2091 ----
+  
+      const/4 v3, -0x1
+  
++     iget-boolean v1, p0, Landroid/widget/AbsListView;->mIsTouching:Z
++ 
++     if-eqz v1, :cond_miui_0
++ 
++     iput-boolean v4, p0, Landroid/widget/AbsListView;->mIsTouching:Z
++ 
++     invoke-static {p0}, Landroid/widget/AbsListViewInjector;->resetScale(Landroid/widget/AbsListView;)V
++ 
++     :cond_miui_0
+      iget v1, p0, Landroid/widget/AbsListView;->mTouchMode:I
+  
+      packed-switch v1, :pswitch_data_0
+***************
+*** 2133,2138 ****
+--- 2172,2179 ----
+      .prologue
+      const/4 v6, 0x0
+  
++     invoke-static {p0, p1}, Landroid/widget/AbsListViewInjector;->initOnTouchDown(Landroid/widget/AbsListView;Landroid/view/MotionEvent;)V
++ 
+      invoke-virtual {p1, v6}, Landroid/view/MotionEvent;->getPointerId(I)I
+  
+      move-result v4
+***************
+*** 2331,2337 ****
+  .end method
+  
+  .method private onTouchMove(Landroid/view/MotionEvent;)V
+!     .locals 7
+      .param p1, "ev"    # Landroid/view/MotionEvent;
+  
+      .prologue
+--- 2372,2378 ----
+  .end method
+  
+  .method private onTouchMove(Landroid/view/MotionEvent;)V
+!     .locals 8
+      .param p1, "ev"    # Landroid/view/MotionEvent;
+  
+      .prologue
+***************
+*** 2364,2376 ****
+      invoke-virtual {p0}, Landroid/widget/AbsListView;->layoutChildren()V
+  
+      :cond_1
+!     invoke-virtual {p1, v1}, Landroid/view/MotionEvent;->getY(I)F
+  
+!     move-result v4
+! 
+!     float-to-int v3, v4
+  
+      .local v3, "y":I
+      iget v4, p0, Landroid/widget/AbsListView;->mTouchMode:I
+  
+      packed-switch v4, :pswitch_data_0
+--- 2405,2433 ----
+      invoke-virtual {p0}, Landroid/widget/AbsListView;->layoutChildren()V
+  
+      :cond_1
+!     invoke-static {p0, p1, v1}, Landroid/widget/AbsListViewInjector;->getY(Landroid/widget/AbsListView;Landroid/view/MotionEvent;I)I
+  
+!     move-result v3
+  
+      .local v3, "y":I
++     iget-boolean v5, p0, Landroid/widget/AbsListView;->mIsTouching:Z
++ 
++     if-nez v5, :cond_miui_0
++ 
++     invoke-static {p0, p1}, Landroid/widget/AbsListViewInjector;->initOnTouchDown(Landroid/widget/AbsListView;Landroid/view/MotionEvent;)V
++ 
++     :cond_miui_0
++     invoke-static {p0, v3}, Landroid/widget/AbsListViewInjector;->getPanSpeed(Landroid/widget/AbsListView;I)I
++ 
++     move-result v7
++ 
++     iput v7, p0, Landroid/widget/AbsListView;->mInertia:I
++ 
++     iget v7, p0, Landroid/widget/AbsListView;->mDownMotionY:I
++ 
++     sub-int v7, v3, v7
++ 
++     .local v7, "offset":I
+      iget v4, p0, Landroid/widget/AbsListView;->mTouchMode:I
+  
+      packed-switch v4, :pswitch_data_0
+***************
+*** 2447,2460 ****
+      .end local v0    # "motionView":Landroid/view/View;
+      .end local v2    # "x":F
+      :pswitch_2
+      invoke-direct {p0, v3}, Landroid/widget/AbsListView;->scrollIfNeeded(I)V
+  
+      goto :goto_0
+  
+      nop
+  
+      :pswitch_data_0
+!     .packed-switch 0x0
+          :pswitch_1
+          :pswitch_1
+          :pswitch_1
+--- 2504,2533 ----
+      .end local v0    # "motionView":Landroid/view/View;
+      .end local v2    # "x":F
+      :pswitch_2
++     invoke-static {p0, v7}, Landroid/widget/AbsListViewInjector;->setListScaleIfNeeded(Landroid/widget/AbsListView;I)Z
++ 
++     move-result v4
++ 
++     if-eqz v4, :cond_miui_1
++ 
++     iput v3, p0, Landroid/widget/AbsListView;->mLastY:I
++ 
++     return-void
++ 
++     :cond_miui_1
+      invoke-direct {p0, v3}, Landroid/widget/AbsListView;->scrollIfNeeded(I)V
+  
+      goto :goto_0
+  
++     :pswitch_miui_0
++     iput v6, p0, Landroid/widget/AbsListView;->mInertia:I
++ 
++     goto :goto_0
+      nop
+  
+      :pswitch_data_0
+!     .packed-switch -0x1
+!         :pswitch_miui_0
+          :pswitch_1
+          :pswitch_1
+          :pswitch_1
+***************
+*** 2471,2476 ****
+--- 2544,2566 ----
+      .prologue
+      move-object/from16 v0, p0
+  
++     iget-boolean v0, v0, Landroid/widget/AbsListView;->mIsTouching:Z
++ 
++     move/from16 v17, v0
++ 
++     if-eqz v17, :cond_miui_0
++ 
++     const/16 v17, 0x0
++ 
++     move/from16 v0, v17
++ 
++     move-object/from16 v1, p0
++ 
++     iput-boolean v0, v1, Landroid/widget/AbsListView;->mIsTouching:Z
++ 
++     :cond_miui_0
++     move-object/from16 v0, p0
++ 
+      iget v0, v0, Landroid/widget/AbsListView;->mTouchMode:I
+  
+      move/from16 v17, v0
+***************
+*** 5737,5742 ****
+--- 5827,5834 ----
+      .prologue
+      const/4 v10, 0x0
+  
++     invoke-static {p0}, Landroid/widget/AbsListViewInjector;->onRenderTick(Landroid/widget/AbsListView;)V
++ 
+      invoke-super {p0, p1}, Landroid/widget/AdapterView;->draw(Landroid/graphics/Canvas;)V
+  
+      iget-object v8, p0, Landroid/widget/AbsListView;->mEdgeGlowTop:Landroid/widget/EdgeEffect;
+***************
+*** 6714,6719 ****
+--- 6806,6820 ----
+      goto :goto_0
+  .end method
+  
++ .method getVerticalSpacing()I
++     .locals 1
++ 
++     .prologue
++     const/4 v0, 0x0
++ 
++     return v0
++ .end method
++ 
+  .method protected handleDataChanged()V
+      .locals 15
+  
+***************
+*** 10010,10020 ****
+      float-to-int v6, v10
+  
+      .restart local v6    # "x":I
+!     invoke-virtual {p1, v3}, Landroid/view/MotionEvent;->getY(I)F
+! 
+!     move-result v10
+  
+!     float-to-int v7, v10
+  
+      .restart local v7    # "y":I
+      iput v8, p0, Landroid/widget/AbsListView;->mMotionCorrection:I
+--- 10111,10119 ----
+      float-to-int v6, v10
+  
+      .restart local v6    # "x":I
+!     invoke-static {p0, p1, v3}, Landroid/widget/AbsListViewInjector;->getY(Landroid/widget/AbsListView;Landroid/view/MotionEvent;I)I
+  
+!     move-result v7
+  
+      .restart local v7    # "y":I
+      iput v8, p0, Landroid/widget/AbsListView;->mMotionCorrection:I
+***************
+*** 10051,10056 ****
+--- 10150,10165 ----
+  
+      .end local v1    # "child":Landroid/view/View;
+      :cond_6
++     iget v8, p0, Landroid/widget/AbsListView;->mLastY:I
++ 
++     iget v10, p0, Landroid/widget/AbsListView;->mDownMotionY:I
++ 
++     sub-int/2addr v8, v10
++ 
++     sub-int v8, v7, v8
++ 
++     iput v8, p0, Landroid/widget/AbsListView;->mDownMotionY:I
++ 
+      iput v7, p0, Landroid/widget/AbsListView;->mLastY:I
+  
+      goto :goto_1

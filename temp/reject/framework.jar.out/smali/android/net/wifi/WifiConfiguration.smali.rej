@@ -1,0 +1,68 @@
+*** WifiConfiguration.smali	2015-05-02 01:21:05.468407888 +0800
+--- WifiConfiguration.smali	2015-05-02 01:17:29.556414267 +0800
+***************
+*** 552,560 ****
+  .end method
+  
+  .method public getAuthType()I
+!     .locals 5
+  
+      .prologue
+      const/4 v1, 0x4
+  
+      const/4 v3, 0x3
+--- 586,596 ----
+  .end method
+  
+  .method public getAuthType()I
+!     .locals 6
+  
+      .prologue
++     const/4 v5, 0x5
++ 
+      const/4 v1, 0x4
+  
+      const/4 v3, 0x3
+***************
+*** 629,634 ****
+      goto :goto_0
+  
+      :cond_4
+      const/4 v0, 0x0
+  
+      goto :goto_0
+--- 665,698 ----
+      goto :goto_0
+  
+      :cond_4
++     iget-object v0, p0, Landroid/net/wifi/WifiConfiguration;->allowedKeyManagement:Ljava/util/BitSet;
++ 
++     invoke-virtual {v0, v4}, Ljava/util/BitSet;->get(I)Z
++ 
++     move-result v0
++ 
++     if-eqz v0, :cond_miui_0
++ 
++     move v0, v5
++ 
++     goto :goto_0
++ 
++     :cond_miui_0
++     iget-object v0, p0, Landroid/net/wifi/WifiConfiguration;->allowedKeyManagement:Ljava/util/BitSet;
++ 
++     const/4 v1, 0x6
++ 
++     invoke-virtual {v0, v1}, Ljava/util/BitSet;->get(I)Z
++ 
++     move-result v0
++ 
++     if-eqz v0, :cond_miui_1
++ 
++     const/4 v0, 0x6
++ 
++     goto :goto_0
++ 
++     :cond_miui_1
+      const/4 v0, 0x0
+  
+      goto :goto_0

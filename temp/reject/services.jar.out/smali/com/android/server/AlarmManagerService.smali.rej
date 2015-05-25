@@ -1,0 +1,39 @@
+*** AlarmManagerService.smali	2015-05-02 01:21:33.040407073 +0800
+--- AlarmManagerService.smali	2015-05-02 01:17:59.376413386 +0800
+***************
+*** 3445,3450 ****
+      return-void
+  
+      :cond_0
+      const-wide/32 v7, 0x2932e00
+  
+      cmp-long v7, p4, v7
+--- 3446,3473 ----
+      return-void
+  
+      :cond_0
++     move-object/from16 v0, p0
++ 
++     iget-object v3, v0, Lcom/android/server/AlarmManagerService;->mContext:Landroid/content/Context;
++ 
++     move/from16 v4, p1
++ 
++     move-wide/from16 v5, p2
++ 
++     move-wide/from16 v7, p4
++ 
++     move-wide/from16 v9, p6
++ 
++     move-object/from16 v11, p8
++ 
++     move/from16 v12, p9
++ 
++     move-object/from16 v13, p10
++ 
++     invoke-static/range {v3 .. v13}, Lcom/android/server/ExtraAlarmManagerService;->recalculateWindowLength(Landroid/content/Context;IJJJLandroid/app/PendingIntent;ZLandroid/os/WorkSource;)J
++ 
++     move-result-wide p4
++ 
+      const-wide/32 v7, 0x2932e00
+  
+      cmp-long v7, p4, v7

@@ -1,0 +1,40 @@
+*** ActivityManagerService.smali	2015-05-02 01:21:42.408406796 +0800
+--- ActivityManagerService.smali	2015-05-02 01:18:09.236413095 +0800
+***************
+*** 19223,19229 ****
+      move-result-object v1
+  
+      .local v1, "context":Landroid/content/Context;
+!     const v4, 0x103006b
+  
+      invoke-virtual {v1, v4}, Landroid/content/Context;->setTheme(I)V
+  
+--- 19289,19295 ----
+      move-result-object v1
+  
+      .local v1, "context":Landroid/content/Context;
+!     sget v4, Lmiui/R$style;->Theme_Light:I
+  
+      invoke-virtual {v1, v4}, Landroid/content/Context;->setTheme(I)V
+  
+***************
+*** 66019,66024 ****
+  
+      invoke-direct/range {v3 .. v18}, Lcom/android/server/am/ActivityManagerService;->broadcastIntentLocked(Lcom/android/server/am/ProcessRecord;Ljava/lang/String;Landroid/content/Intent;Ljava/lang/String;Landroid/content/IIntentReceiver;ILjava/lang/String;Landroid/os/Bundle;Ljava/lang/String;IZZIII)I
+  
+      and-int/lit8 v3, v21, 0x4
+  
+      if-eqz v3, :cond_9
+--- 66144,66155 ----
+  
+      invoke-direct/range {v3 .. v18}, Lcom/android/server/am/ActivityManagerService;->broadcastIntentLocked(Lcom/android/server/am/ProcessRecord;Ljava/lang/String;Landroid/content/Intent;Ljava/lang/String;Landroid/content/IIntentReceiver;ILjava/lang/String;Landroid/os/Bundle;Ljava/lang/String;IZZIII)I
+  
++     move/from16 v0, v21
++ 
++     move-object/from16 v1, v27
++ 
++     invoke-static {v0, v1}, Lcom/android/server/am/ExtraActivityManagerService;->handleExtraConfigurationChangesForSystem(ILandroid/content/res/Configuration;)V
++ 
+      and-int/lit8 v3, v21, 0x4
+  
+      if-eqz v3, :cond_9

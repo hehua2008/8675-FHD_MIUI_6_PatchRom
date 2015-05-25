@@ -1,0 +1,104 @@
+*** ./smali/android/content/Intent.smali	2015-05-02 01:20:40.992408611 +0800
+--- /home/hgm/MIUI6/8675-FHD/temp/new_smali/framework.jar.out/./smali/android/content/Intent.smali	2015-05-02 01:17:02.852415056 +0800
+***************
+*** 621,626 ****
+--- 621,628 ----
+  
+  .field private mSelector:Landroid/content/Intent;
+  
++ .field private mSenderPackageName:Ljava/lang/String;
++ 
+  .field private mSourceBounds:Landroid/graphics/Rect;
+  
+  .field private mType:Ljava/lang/String;
+***************
+*** 770,775 ****
+--- 772,781 ----
+      iput-object v0, p0, Landroid/content/Intent;->mClipData:Landroid/content/ClipData;
+  
+      :cond_4
++     iget-object v0, p1, Landroid/content/Intent;->mSenderPackageName:Ljava/lang/String;
++ 
++     iput-object v0, p0, Landroid/content/Intent;->mSenderPackageName:Ljava/lang/String;
++ 
+      return-void
+  .end method
+  
+***************
+*** 814,819 ****
+--- 820,829 ----
+      iput-object v0, p0, Landroid/content/Intent;->mCategories:Landroid/util/ArraySet;
+  
+      :cond_0
++     iget-object v0, p1, Landroid/content/Intent;->mSenderPackageName:Ljava/lang/String;
++ 
++     iput-object v0, p0, Landroid/content/Intent;->mSenderPackageName:Ljava/lang/String;
++ 
+      return-void
+  .end method
+  
+***************
+*** 4817,4822 ****
+--- 4827,4841 ----
+      return-object v0
+  .end method
+  
++ .method public getSender()Ljava/lang/String;
++     .locals 1
++ 
++     .prologue
++     iget-object v0, p0, Landroid/content/Intent;->mSenderPackageName:Ljava/lang/String;
++ 
++     return-object v0
++ .end method
++ 
+  .method public getSerializableExtra(Ljava/lang/String;)Ljava/io/Serializable;
+      .locals 1
+      .param p1, "name"    # Ljava/lang/String;
+***************
+*** 6444,6449 ****
+--- 6463,6474 ----
+  
+      iput-object v2, p0, Landroid/content/Intent;->mExtras:Landroid/os/Bundle;
+  
++     invoke-virtual {p1}, Landroid/os/Parcel;->readString()Ljava/lang/String;
++ 
++     move-result-object v2
++ 
++     iput-object v2, p0, Landroid/content/Intent;->mSenderPackageName:Ljava/lang/String;
++ 
+      return-void
+  .end method
+  
+***************
+*** 7130,7135 ****
+--- 7155,7170 ----
+      return-void
+  .end method
+  
++ .method public setSender(Ljava/lang/String;)V
++     .locals 0
++     .param p1, "packageName"    # Ljava/lang/String;
++ 
++     .prologue
++     iput-object p1, p0, Landroid/content/Intent;->mSenderPackageName:Ljava/lang/String;
++ 
++     return-void
++ .end method
++ 
+  .method public setSourceBounds(Landroid/graphics/Rect;)V
+      .locals 1
+      .param p1, "r"    # Landroid/graphics/Rect;
+***************
+*** 7940,7945 ****
+--- 7975,7984 ----
+  
+      invoke-virtual {p1, v2}, Landroid/os/Parcel;->writeBundle(Landroid/os/Bundle;)V
+  
++     iget-object v2, p0, Landroid/content/Intent;->mSenderPackageName:Ljava/lang/String;
++ 
++     invoke-virtual {p1, v2}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
++ 
+      return-void
+  
+      :cond_3

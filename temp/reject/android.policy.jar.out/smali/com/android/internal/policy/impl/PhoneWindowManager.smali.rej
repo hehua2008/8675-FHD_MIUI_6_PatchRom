@@ -1,0 +1,48 @@
+*** PhoneWindowManager.smali	2015-05-02 01:21:44.088406746 +0800
+--- PhoneWindowManager.smali	2015-05-02 01:18:10.972413043 +0800
+***************
+*** 393,404 ****
+  
+  .field private mPowerKeyTriggered:Z
+  
+! .field private final mPowerLongPress:Ljava/lang/Runnable;
+  
+  .field mPowerManager:Landroid/os/PowerManager;
+  
+  .field mPreloadedRecentApps:Z
+  
+  .field mRecentAppsDialog:Lcom/android/internal/policy/impl/RecentApplicationsDialog;
+  
+  .field mRecentAppsDialogHeldModifiers:I
+--- 395,408 ----
+  
+  .field private mPowerKeyTriggered:Z
+  
+! .field private mPowerLongPress:Ljava/lang/Runnable;
+  
+  .field mPowerManager:Landroid/os/PowerManager;
+  
+  .field mPreloadedRecentApps:Z
+  
++ .field private final mQuickBootLock:Ljava/lang/Object;
++ 
+  .field mRecentAppsDialog:Lcom/android/internal/policy/impl/RecentApplicationsDialog;
+  
+  .field mRecentAppsDialogHeldModifiers:I
+***************
+*** 11952,11957 ****
+  
+      if-eqz v12, :cond_19
+  
+      invoke-interface {v11}, Lcom/android/internal/telephony/ITelephony;->endCall()Z
+      :try_end_5
+      .catch Landroid/os/RemoteException; {:try_start_5 .. :try_end_5} :catch_2
+--- 12006,12013 ----
+  
+      if-eqz v12, :cond_19
+  
++     if-eqz p3, :cond_19
++ 
+      invoke-interface {v11}, Lcom/android/internal/telephony/ITelephony;->endCall()Z
+      :try_end_5
+      .catch Landroid/os/RemoteException; {:try_start_5 .. :try_end_5} :catch_2

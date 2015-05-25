@@ -1,0 +1,44 @@
+*** SIMRecords.smali	2015-05-02 01:21:55.484406410 +0800
+--- SIMRecords.smali	2015-05-02 01:18:22.572412701 +0800
+***************
+*** 978,983 ****
+  
+      iput-object v0, p0, Lcom/android/internal/telephony/uicc/SIMRecords;->mAdnCache:Lcom/android/internal/telephony/uicc/AdnRecordCache;
+  
+      new-instance v0, Lcom/android/internal/telephony/uicc/VoiceMailConstants;
+  
+      invoke-direct {v0}, Lcom/android/internal/telephony/uicc/VoiceMailConstants;-><init>()V
+--- 978,991 ----
+  
+      iput-object v0, p0, Lcom/android/internal/telephony/uicc/SIMRecords;->mAdnCache:Lcom/android/internal/telephony/uicc/AdnRecordCache;
+  
++     new-instance v0, Lcom/android/internal/telephony/uicc/MiuiAdnRecordCache;
++ 
++     iget-object v1, p0, Lcom/android/internal/telephony/uicc/SIMRecords;->mFh:Lcom/android/internal/telephony/uicc/IccFileHandler;
++ 
++     invoke-direct {v0, v1}, Lcom/android/internal/telephony/uicc/MiuiAdnRecordCache;-><init>(Lcom/android/internal/telephony/uicc/IccFileHandler;)V
++ 
++     iput-object v0, p0, Lcom/android/internal/telephony/uicc/SIMRecords;->mMiuiAdnCache:Lcom/android/internal/telephony/uicc/MiuiAdnRecordCache;
++ 
+      new-instance v0, Lcom/android/internal/telephony/uicc/VoiceMailConstants;
+  
+      invoke-direct {v0}, Lcom/android/internal/telephony/uicc/VoiceMailConstants;-><init>()V
+***************
+*** 1523,1528 ****
+  
+      invoke-virtual {v0}, Lcom/android/internal/telephony/uicc/AdnRecordCache;->reset()V
+  
+      invoke-virtual {p0}, Lcom/android/internal/telephony/uicc/SIMRecords;->fetchSimRecords()V
+  
+      :goto_0
+--- 1531,1540 ----
+  
+      invoke-virtual {v0}, Lcom/android/internal/telephony/uicc/AdnRecordCache;->reset()V
+  
++     iget-object v0, p0, Lcom/android/internal/telephony/uicc/SIMRecords;->mMiuiAdnCache:Lcom/android/internal/telephony/uicc/MiuiAdnRecordCache;
++ 
++     invoke-virtual {v0}, Lcom/android/internal/telephony/uicc/MiuiAdnRecordCache;->reset()V
++ 
+      invoke-virtual {p0}, Lcom/android/internal/telephony/uicc/SIMRecords;->fetchSimRecords()V
+  
+      :goto_0

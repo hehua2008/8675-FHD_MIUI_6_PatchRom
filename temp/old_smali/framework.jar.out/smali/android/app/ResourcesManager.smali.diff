@@ -1,0 +1,44 @@
+*** ./smali/android/app/ResourcesManager.smali	2015-05-02 01:20:42.408408569 +0800
+--- /home/hgm/MIUI6/8675-FHD/temp/new_smali/framework.jar.out/./smali/android/app/ResourcesManager.smali	2015-05-02 01:17:04.168415017 +0800
+***************
+*** 215,220 ****
+--- 215,222 ----
+      or-int/lit16 v0, v0, 0xd00
+  
+      :cond_3
++     invoke-static {v0, p1}, Landroid/app/MiuiThemeHelper;->handleExtraConfigurationChanges(ILandroid/content/res/Configuration;)V
++ 
+      iget-object v10, p1, Landroid/content/res/Configuration;->locale:Ljava/util/Locale;
+  
+      if-eqz v10, :cond_4
+***************
+*** 772,785 ****
+  
+      :cond_5
+      :goto_3
+!     new-instance v7, Landroid/content/res/Resources;
+  
+      .end local v7    # "r":Landroid/content/res/Resources;
+      move-object/from16 v11, p4
+  
+      move-object/from16 v12, p5
+  
+!     invoke-direct/range {v7 .. v12}, Landroid/content/res/Resources;-><init>(Landroid/content/res/AssetManager;Landroid/util/DisplayMetrics;Landroid/content/res/Configuration;Landroid/content/res/CompatibilityInfo;Landroid/os/IBinder;)V
+  
+      .restart local v7    # "r":Landroid/content/res/Resources;
+      monitor-enter p0
+--- 774,787 ----
+  
+      :cond_5
+      :goto_3
+!     new-instance v7, Landroid/content/res/MiuiResources;
+  
+      .end local v7    # "r":Landroid/content/res/Resources;
+      move-object/from16 v11, p4
+  
+      move-object/from16 v12, p5
+  
+!     invoke-direct/range {v7 .. v12}, Landroid/content/res/MiuiResources;-><init>(Landroid/content/res/AssetManager;Landroid/util/DisplayMetrics;Landroid/content/res/Configuration;Landroid/content/res/CompatibilityInfo;Landroid/os/IBinder;)V
+  
+      .restart local v7    # "r":Landroid/content/res/Resources;
+      monitor-enter p0

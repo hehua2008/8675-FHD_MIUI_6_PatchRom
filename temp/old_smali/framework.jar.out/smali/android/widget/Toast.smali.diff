@@ -1,0 +1,27 @@
+*** ./smali/android/widget/Toast.smali	2015-05-02 01:21:23.264407362 +0800
+--- /home/hgm/MIUI6/8675-FHD/temp/new_smali/framework.jar.out/./smali/android/widget/Toast.smali	2015-05-02 01:17:49.336413683 +0800
+***************
+*** 405,410 ****
+--- 405,426 ----
+      return-void
+  .end method
+  
++ .method public setType(I)V
++     .locals 1
++     .param p1, "type"    # I
++ 
++     .prologue
++     iget-object v0, p0, Landroid/widget/Toast;->mTN:Landroid/widget/Toast$TN;
++ 
++     invoke-virtual {v0}, Landroid/widget/Toast$TN;->getParams()Landroid/view/WindowManager$LayoutParams;
++ 
++     move-result-object v0
++ 
++     iput p1, v0, Landroid/view/WindowManager$LayoutParams;->type:I
++ 
++     return-void
++ .end method
++ 
+  .method public setView(Landroid/view/View;)V
+      .locals 0
+      .param p1, "view"    # Landroid/view/View;

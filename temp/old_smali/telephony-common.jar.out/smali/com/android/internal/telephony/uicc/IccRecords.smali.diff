@@ -1,0 +1,44 @@
+*** ./smali/com/android/internal/telephony/uicc/IccRecords.smali	2015-05-02 01:21:55.424406411 +0800
+--- /home/hgm/MIUI6/8675-FHD/temp/new_smali/telephony-common.jar.out/./smali/com/android/internal/telephony/uicc/IccRecords.smali	2015-05-02 01:18:22.516412702 +0800
+***************
+*** 63,68 ****
+--- 63,70 ----
+  
+  .field protected mMailboxIndex:I
+  
++ .field protected mMiuiAdnCache:Lcom/android/internal/telephony/uicc/MiuiAdnRecordCache;
++ 
+  .field protected mMncLength:I
+  
+  .field protected mMsisdn:Ljava/lang/String;
+***************
+*** 1149,1154 ****
+--- 1151,1165 ----
+      return-object v0
+  .end method
+  
++ .method public getMiuiAdnCache()Lcom/android/internal/telephony/uicc/MiuiAdnRecordCache;
++     .locals 1
++ 
++     .prologue
++     iget-object v0, p0, Lcom/android/internal/telephony/uicc/IccRecords;->mMiuiAdnCache:Lcom/android/internal/telephony/uicc/MiuiAdnRecordCache;
++ 
++     return-object v0
++ .end method
++ 
+  .method public getMsisdnAlphaTag()Ljava/lang/String;
+      .locals 1
+  
+***************
+*** 1449,1454 ****
+--- 1460,1469 ----
+  
+      invoke-virtual {v0}, Lcom/android/internal/telephony/uicc/AdnRecordCache;->reset()V
+  
++     iget-object v0, p0, Lcom/android/internal/telephony/uicc/IccRecords;->mMiuiAdnCache:Lcom/android/internal/telephony/uicc/MiuiAdnRecordCache;
++ 
++     invoke-virtual {v0}, Lcom/android/internal/telephony/uicc/MiuiAdnRecordCache;->reset()V
++ 
+      iget-object v0, p0, Lcom/android/internal/telephony/uicc/IccRecords;->mParentApp:Lcom/android/internal/telephony/uicc/UiccCardApplication;
+  
+      invoke-virtual {v0}, Lcom/android/internal/telephony/uicc/UiccCardApplication;->getState()Lcom/android/internal/telephony/uicc/IccCardApplicationStatus$AppState;

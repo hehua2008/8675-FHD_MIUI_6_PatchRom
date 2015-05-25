@@ -1,0 +1,362 @@
+# Copyright (c) 2013-2014, The Linux Foundation. All rights reserved.
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions are
+# met:
+#     * Redistributions of source code must retain the above copyright
+#       notice, this list of conditions and the following disclaimer.
+#     * Redistributions in binary form must reproduce the above
+#       copyright notice, this list of conditions and the following
+#       disclaimer in the documentation and/or other materials provided
+#       with the distribution.
+#     * Neither the name of The Linux Foundation nor the names of its
+#       contributors may be used to endorse or promote products derived
+#       from this software without specific prior written permission.
+#
+# THIS SOFTWARE IS PROVIDED "AS IS" AND ANY EXPRESS OR IMPLIED
+# WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT
+# ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS
+# BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+# CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+# SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR
+# BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+# WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+# OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
+# IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+#
+#
+
+on early-init
+    mkdir /firmware 0771 system system
+    mkdir /system 0777 root root
+    symlink /data/tombstones /tombstones
+
+# import cne init file
+on post-fs
+    export LD_PRELOAD /vendor/lib/libNimsWrap.so
+
+on fs
+    # yulong begin, modify
+    chown system sdcard_rw /autobak
+    chmod 0775 /autobak
+    chown system system /panic
+    chmod 0644 /panic
+    #yulong end
+    
+    mount_all fstab.qcom
+
+    # Keeping following partitions outside fstab file. As user may not have
+    # these partition flashed on the device. Failure to mount any partition in fstab file
+    # results in failure to launch late-start class.
+
+    wait /dev/block/bootdevice/by-name/autobak
+    mount ext4 /dev/block/bootdevice/by-name/autobak /autobak nosuid nodev barrier=1 nodelalloc,errors=continue
+	
+    wait /dev/block/bootdevice/by-name/panic
+    mount ext4 /dev/block/bootdevice/by-name/panic /panic nosuid nodev barrier=1 nodelalloc,errors=continue
+    
+    wait /dev/block/bootdevice/by-name/cache
+    mount ext4 /dev/block/bootdevice/by-name/cache /cache nosuid nodev barrier=1 nodelalloc,errors=continue
+
+    wait /dev/block/bootdevice/by-name/persist
+    mount ext4 /dev/block/bootdevice/by-name/persist /persist nosuid nodev barrier=1 nodelalloc,errors=continue
+
+    wait /dev/block/bootdevice/by-name/modem
+    mount vfat /dev/block/bootdevice/by-name/modem /firmware ro shortname=lower,uid=1000,gid=1000,dmask=227,fmask=337
+    #write /sys/kernel/boot_adsp/boot 1
+
+on post-fs-data
+    mkdir /data/tombstones 0771 system system
+    mkdir /tombstones/modem 0771 system system
+    mkdir /tombstones/lpass 0771 system system
+    mkdir /tombstones/wcnss 0771 system system
+    mkdir /tombstones/dsps 0771 system system
+
+   
+    # load the adsp img earlier do not add other thing before it !add by zll
+    write /sys/kernel/boot_adsp/boot 1
+
+#yulong begin zhangwenxiang add directory for log service 2014.10.30
+		mkdir /data/log 0775 system shell
+		mkdir /data/log/Mlog 0775 system radio
+		chown radio shell /data/log/Mlog
+		chmod 0775 /data/log/Mlog
+#yulong end 
+	
+# yulong begin,add
+# CTS touchscreen items, wzh,2013-03-25
+    chown system system /sys/devices/virtual/touchscreen/touchscreen_dev/firmware_update
+    chown system system /sys/devices/virtual/touchscreen/touchscreen_dev/calibrate
+    chown system system /sys/devices/virtual/touchscreen/touchscreen_dev/mode
+    chown system system /sys/devices/virtual/touchscreen/touchscreen_dev/oreitation
+    chown system system /sys/devices/virtual/touchscreen/touchscreen_dev/regs
+    chown system system /sys/devices/virtual/touchscreen/touchscreen_dev/get_rawdata
+    chown system system /sys/devices/virtual/touchscreen/touchscreen_dev/debug
+    chown system system /sys/devices/virtual/touchscreen/touchscreen_dev/reset
+# yulong end
+
+#yulong add,  begin
+#for Gesture Wakeup
+    chown system system /sys/devices/virtual/touchscreen/touchscreen_dev/gesture_ctrl
+#yulong end
+
+# yulong begin, for sensor hub firmware update add by Jay.HF
+    chmod 0755 /system/etc/init.sensor.sh
+    chown system system /system/etc/init.sensor.sh
+# yulong end
+
+# yulong begin,for smart cover add by liguang 2014.9.2
+	chown system system /sys/devices/virtual/touchscreen/touchscreen_dev/mode
+
+# yulong end
+
+#start camera server as daemon
+service qcamerasvr /system/bin/mm-qcamera-daemon
+    class late_start
+    user camera
+    group camera system inet input graphics
+
+# Allow usb charging to be disabled peristently
+on property:persist.usb.chgdisabled=1
+    write /sys/class/power_supply/battery/charging_enabled 0
+
+on property:persist.usb.chgdisabled=0
+    write /sys/class/power_supply/battery/charging_enabled 1
+
+service qrngd /system/bin/qrngd -f
+   class main
+   user root
+   group root
+
+service qrngp /system/bin/qrngp -f
+   class main
+   user root
+   group root
+   oneshot
+   disabled
+
+on property:sys.boot_completed=1
+   start qrngp
+
+
+# Temporary note by zhurui1 2014.04.29
+service qseecomd /system/bin/qseecomd
+    class core
+    user root
+    group root
+
+#service mpdecision /system/bin/mpdecision --avg_comp
+#   user root
+#   disabled
+
+service thermal-engine /system/bin/thermal-engine
+   class main
+   user root
+   group root
+
+service time_daemon /system/bin/time_daemon
+   class late_start
+   user root
+   group root
+
+service audiod /system/bin/audiod
+   class late_start
+   user system
+   group system
+
+on charger
+   wait /dev/block/bootdevice/by-name/system
+   mount ext4 /dev/block/bootdevice/by-name/system /system ro barrier=1
+   chown root system /sys/class/power_supply/bms/current_now
+   chown root system /sys/class/power_supply/bms/voltage_ocv
+   chmod 0664 /sys/class/power_supply/bms/current_now
+   chmod 0664 /sys/class/power_supply/bms/voltage_ocv
+#   start vm_bms
+
+on boot
+    insmod /system/lib/modules/adsprpc.ko
+
+# yulong begin for start the log service by zhangwenxiang at 2014.10.30
+    start mainlog
+    start systemlog
+    start radiolog
+# yulong end
+
+    write /sys/class/sensors_compass/compass/position 5
+# close qualcom cabl
+#service ppd /system/bin/mm-pp-daemon
+#    class late_start
+#    user system
+#    socket pps stream 0660 system system
+#    group system graphics
+    chown system system /sys/devices/soc.0/78b6000.i2c/i2c-0/0-0068/input/input2/calibration
+    chown system system /sys/devices/soc.0/78b6000.i2c/i2c-0/0-0068/input/input2/debug
+    chown system system /sys/devices/soc.0/78b6000.i2c/i2c-0/0-0068/input/input2/gyro_enable
+    chown system system /sys/devices/soc.0/78b6000.i2c/i2c-0/0-0068/input/input2/device_delay
+    chown system system /sys/devices/soc.0/78b6000.i2c/i2c-0/0-0068/input/input2/accel_enable
+    chown system system /sys/devices/soc.0/78b6000.i2c/i2c-0/0-0068/input/input2/accel_delay
+    chown system system /sys/devices/soc.0/78b6000.i2c/i2c-0/0-0068/input/input2/gyro_delay
+		chmod 0666 /dev/camera0
+
+on property:init.svc.surfaceflinger=stopped
+    stop ppd
+
+service wcnss-service /system/bin/wcnss_service
+    class main
+    user system
+    group system wifi radio
+    oneshot
+
+#service imsqmidaemon /system/bin/imsqmidaemon
+#    class main
+#    user system
+#    socket ims_qmid stream 0660 system radio
+#    group ims radio net_raw log qcom_diag
+
+service imsdatadaemon /system/bin/imsdatadaemon
+    class main
+    user system
+    socket ims_datad stream 0660 system radio
+    group system ims wifi radio inet net_raw log qcom_diag net_admin
+    disabled
+
+on property:sys.ims.QMI_DAEMON_STATUS=1
+    start imsdatadaemon
+
+service ims_rtp_daemon /system/bin/ims_rtp_daemon
+   class main
+   user system
+   socket ims_rtpd stream 0660 system ims
+   group ims net_raw diag qcom_diag log
+   disabled
+
+on property:sys.ims.DATA_DAEMON_STATUS=1
+    start ims_rtp_daemon
+
+
+
+#yulong begin zq 20131104 ADD FOR sharp FHD lcd
+on property:sys.gamma=22
+    write /sys/class/misc/color_enhancement/gamma 22
+
+on property:sys.gamma=28
+    write /sys/class/misc/color_enhancement/gamma 28
+#yulong end
+
+
+
+
+
+    
+# yulong begin,add
+# temp to format udisk, zhangtao.2012.8.27
+service format_udisk /system/bin/sh /system/etc/mmc_format.sh  udisk_tmp
+    class main
+    oneshot
+# yulong add begin, by douweifeng
+#gsm muxd
+service gsm_mux2 /system/bin/gsm0710muxd -v 6 -s /dev/ttyHS0 -b 4000000 -n 10 -m basic -u 2
+     class main
+     user root
+     group radio cache inet misc
+     oneshot
+     disabled
+# slot-daemon for checkcard
+service slot-daemon /system/bin/PhoneSlotService
+    class main
+    user root
+    group radio cache inet misc
+# yulong end
+
+
+#service ril-daemon /system/bin/rild -c 0
+#    class main
+#    socket rild stream 660 root radio
+#    socket rild-debug stream 660 radio system
+#    user root
+#    group radio cache inet misc audio log qcom_diag
+
+# yulong begin add by liubo 2014.3.5
+service ril-daemon2 /system/bin/rild -c 1
+    class main
+    socket rild2 stream 660 root radio
+    socket rild-debug2 stream 660 radio system
+    user root
+    group radio cache inet misc audio log qcom_diag
+# yulong end
+
+
+# yulong add begin, by Jay.HF
+#service init_sensorhub /system/bin/sh /system/etc/init.sensorhub.sh
+#	class main
+#	user root
+#	oneshot
+# yulong end
+
+
+# yulong begin add by lifei
+service cpdolby /system/bin/sh /system/etc/cpdolbycfg.sh
+    class main
+    oneshot
+# yulong end
+
+
+service perfd /system/bin/perfd
+    user root
+
+# yulong begin add 
+# for security check,wzh,20131223
+service coolsec /sbin/coolsec
+class core
+oneshot
+# yulong end
+
+# yulong begin, add
+# bugreport is triggered, chenglixing 20130617
+service ylbugreport /system/bin/yldumpstate -a -d -z -v -o /data/brs/temp/yldumpstate
+    class main
+    disabled
+    oneshot
+# yulong, end
+
+# yulong begin, add
+# bugreport is triggered
+service snaplog /system/bin/sh /system/xbin/ylsnaplog.sh
+    class main
+    user root
+    group shell 
+    disabled
+    oneshot
+# yulong, end
+
+#yulong begin add by zhangwenxiang to add log services 2014.10.30
+service mainlog /system/bin/logcat -f /data/log/Mlog/main -v time -b main -r5120
+    user radio
+    group system log
+    disabled
+    oneshot
+    
+service systemlog /system/bin/logcat -f /data/log/Mlog/system -v time  -b system -r5120
+    user radio
+    group system log
+    disabled
+    oneshot
+    
+service radiolog /system/bin/logcat -f /data/log/Mlog/radio -v time -b radio -r5120
+    user radio
+    group system log
+    disabled
+    oneshot
+#yulong end
+
+#yulong begin add by Lin Lide to Reduced frequency 2014.10.30
+on property:sys.open.cores=1
+    write /sys/devices/system/cpu/cpu1/online 1
+    write /sys/devices/system/cpu/cpu2/online 1
+    write /sys/devices/system/cpu/cpu3/online 1
+    write /sys/devices/system/cpu/cpu4/online 1
+    write /sys/devices/system/cpu/cpu5/online 1
+    write /sys/devices/system/cpu/cpu6/online 1
+    write /sys/devices/system/cpu/cpu7/online 1
+#yulong end

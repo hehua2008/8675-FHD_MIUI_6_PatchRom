@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="horizontal" android:background="@drawable/yl_preference_category_holo_light_bg" android:layout_width="fill_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView android:textSize="@dimen/yl_list_separator_text_size" android:textColor="@color/yl_list_separator_text_color" android:gravity="center_vertical" android:layout_gravity="center" android:id="@id/title" android:background="@drawable/yl_preference_category_text_holo_light_bg" android:paddingLeft="@dimen/yl_list_separator_padding_start" android:paddingRight="@dimen/yl_list_separator_padding_end" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+</LinearLayout>

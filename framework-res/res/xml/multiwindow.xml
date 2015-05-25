@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cornerstone>
+    <applications>
+        <item>com.yulong.android.mms.ui.MmsMainListFormActivity</item>
+        <item>com.android.browser.BrowserActivity</item>
+        <item>com.android.email.activity.Welcome</item>
+        <item>com.yulong.android.coolmemo.ui.CoolMemoActivity</item>
+        <item>com.android.gallery3d.app.galleryforvideo</item>
+        <item>com.tencent.mobileqq.activity.SplashActivity</item>
+        <item>com.sina.weibo.SplashActivity</item>
+        <item>com.sina.weibog3.SplashActivity</item>
+        <item>com.funambol.android.activities.CoolWinLauncherActivity</item>
+        <item>com.sohu.newsclient.app.SplashActivity</item>
+        <item>com.tencent.mm.ui.LauncherUI</item>
+    </applications>
+    <applicationspkgname>
+        <pkg>com.yulong.android.mwstarter</pkg>
+        <pkg>android</pkg>
+        <pkg>com.android.mms</pkg>
+        <pkg>com.android.browser</pkg>
+        <pkg>com.android.email</pkg>
+        <pkg>com.yulong.android.memo</pkg>
+        <pkg>com.android.gallery3d</pkg>
+        <pkg>com.yulong.android.videoplayer</pkg>
+        <pkg>com.tencent.mobileqq</pkg>
+        <pkg>com.sina.weibo</pkg>
+        <pkg>com.sina.weibog3</pkg>
+        <pkg>com.android.coolwind</pkg>
+        <pkg>com.sohu.newsclient</pkg>
+        <pkg>com.tencent.mm</pkg>
+    </applicationspkgname>
+    <except>
+        <name>com.tencent.video.activity.ChatVideoActivity</name>
+        <name>com.tencent.video.activity.VideoRequestNotifyActivity</name>
+        <name>com.tencent.mobileqq.activity.SplashActivity</name>
+        <name>com.tencent.mobileqq.activity.UserguideActivity</name>
+        <name>com.tencent.mobileqq.activity.LoginActivity</name>
+        <name>com.tencent.mobileqq.activity.GesturePWDCreateActivity</name>
+        <name>com.tencent.mobileqq.activity.GesturePWDUnlockActivity</name>
+        <name>com.tencent.mm.ui.chatting.ChattingUI</name>
+        <name>com.yulong.android.launcher3.Launcher</name>
+        <name>com.yulong.android.mwstarter.SelectAppActivity</name>
+        <name>com.android.settings.deviceinfo.UsbSettings</name>
+    </except>
+</cornerstone>

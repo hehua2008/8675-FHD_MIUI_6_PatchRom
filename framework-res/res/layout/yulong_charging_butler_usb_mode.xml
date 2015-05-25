@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:layout_width="64.0dip" android:layout_height="64.0dip">
+        <ImageView android:layout_gravity="center" android:layout_width="fill_parent" android:layout_height="wrap_content" android:src="@drawable/battery_mode_normal" />
+    </LinearLayout>
+    <LinearLayout android:gravity="center_vertical" android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent">
+        <TextView android:textSize="18.0dip" android:textColor="#ffe6e6e6" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/battery_mode_change_abnormal_title" />
+        <TextView android:textSize="14.0dip" android:textColor="#ff9b9b9b" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/battery_mode_change_normal_message_normalmode" />
+    </LinearLayout>
+</LinearLayout>

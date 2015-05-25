@@ -1,0 +1,106 @@
+*** ./smali/com/android/server/BackupManagerService.smali	2015-05-02 01:21:42.644406789 +0800
+--- /home/hgm/MIUI6/8675-FHD/temp/new_smali/services.jar.out/./smali/com/android/server/BackupManagerService.smali	2015-05-02 01:18:09.472413088 +0800
+***************
+*** 35,41 ****
+          Lcom/android/server/BackupManagerService$RestoreParams;,
+          Lcom/android/server/BackupManagerService$RestoreGetSetsParams;,
+          Lcom/android/server/BackupManagerService$ProvisionedObserver;,
+!         Lcom/android/server/BackupManagerService$BackupRequest;
+      }
+  .end annotation
+  
+--- 35,42 ----
+          Lcom/android/server/BackupManagerService$RestoreParams;,
+          Lcom/android/server/BackupManagerService$RestoreGetSetsParams;,
+          Lcom/android/server/BackupManagerService$ProvisionedObserver;,
+!         Lcom/android/server/BackupManagerService$BackupRequest;,
+!         Lcom/android/server/BackupManagerService$Injector;
+      }
+  .end annotation
+  
+***************
+*** 8217,8223 ****
+  
+      const-string v2, "fullback"
+  
+!     invoke-virtual {p0, v13, v2}, Lcom/android/server/BackupManagerService;->startConfirmationUi(ILjava/lang/String;)Z
+  
+      move-result v2
+  
+--- 8218,8224 ----
+  
+      const-string v2, "fullback"
+  
+!     invoke-static {p0, v13, v2}, Lcom/android/server/BackupManagerService$Injector;->startConfirmationUi(Lcom/android/server/BackupManagerService;ILjava/lang/String;)Z
+  
+      move-result v2
+  
+***************
+*** 8297,8303 ****
+  
+      invoke-virtual {v2, v3, v4, v5}, Landroid/os/PowerManager;->userActivity(JZ)V
+  
+!     invoke-virtual {p0, v13, v1}, Lcom/android/server/BackupManagerService;->startConfirmationTimeout(ILcom/android/server/BackupManagerService$FullParams;)V
+  
+      const-string v2, "BackupManagerService"
+  
+--- 8298,8304 ----
+  
+      invoke-virtual {v2, v3, v4, v5}, Landroid/os/PowerManager;->userActivity(JZ)V
+  
+!     invoke-static {p0, v13, v1}, Lcom/android/server/BackupManagerService$Injector;->startConfirmationTimeout(Lcom/android/server/BackupManagerService;ILcom/android/server/BackupManagerService$FullParams;)V
+  
+      const-string v2, "BackupManagerService"
+  
+***************
+*** 8472,8478 ****
+  
+      const-string v6, "fullrest"
+  
+!     invoke-virtual {p0, v5, v6}, Lcom/android/server/BackupManagerService;->startConfirmationUi(ILjava/lang/String;)Z
+  
+      move-result v6
+  
+--- 8473,8479 ----
+  
+      const-string v6, "fullrest"
+  
+!     invoke-static {p0, v5, v6}, Lcom/android/server/BackupManagerService$Injector;->startConfirmationUi(Lcom/android/server/BackupManagerService;ILjava/lang/String;)Z
+  
+      move-result v6
+  
+***************
+*** 8552,8558 ****
+  
+      invoke-virtual {v6, v7, v8, v9}, Landroid/os/PowerManager;->userActivity(JZ)V
+  
+!     invoke-virtual {p0, v5, v4}, Lcom/android/server/BackupManagerService;->startConfirmationTimeout(ILcom/android/server/BackupManagerService$FullParams;)V
+  
+      const-string v6, "BackupManagerService"
+  
+--- 8553,8559 ----
+  
+      invoke-virtual {v6, v7, v8, v9}, Landroid/os/PowerManager;->userActivity(JZ)V
+  
+!     invoke-static {p0, v5, v4}, Lcom/android/server/BackupManagerService$Injector;->startConfirmationTimeout(Lcom/android/server/BackupManagerService;ILcom/android/server/BackupManagerService$FullParams;)V
+  
+      const-string v6, "BackupManagerService"
+  
+***************
+*** 8838,8843 ****
+--- 8839,8853 ----
+      throw v2
+  .end method
+  
++ .method getContext()Landroid/content/Context;
++     .locals 1
++ 
++     .prologue
++     iget-object v0, p0, Lcom/android/server/BackupManagerService;->mContext:Landroid/content/Context;
++ 
++     return-object v0
++ .end method
++ 
+  .method public getCurrentTransport()Ljava/lang/String;
+      .locals 3
+  

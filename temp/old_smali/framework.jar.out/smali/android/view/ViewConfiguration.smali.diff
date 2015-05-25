@@ -1,0 +1,69 @@
+*** ./smali/android/view/ViewConfiguration.smali	2015-05-02 01:21:11.604407706 +0800
+--- /home/hgm/MIUI6/8675-FHD/temp/new_smali/framework.jar.out/./smali/android/view/ViewConfiguration.smali	2015-05-02 01:17:36.528414061 +0800
+***************
+*** 356,361 ****
+--- 356,365 ----
+  
+      float-to-int v11, v11
+  
++     invoke-static {p1, v11}, Landroid/view/ViewConfigurationHelper;->getOverScrollDistance(Landroid/content/Context;I)I
++ 
++     move-result v11
++ 
+      iput v11, p0, Landroid/view/ViewConfiguration;->mOverscrollDistance:I
+  
+      const/high16 v11, 0x40c00000    # 6.0f
+***************
+*** 368,373 ****
+--- 372,381 ----
+  
+      float-to-int v11, v11
+  
++     invoke-static {p1, v11}, Landroid/view/ViewConfigurationHelper;->getOverFlingDistance(Landroid/content/Context;I)I
++ 
++     move-result v11
++ 
+      iput v11, p0, Landroid/view/ViewConfiguration;->mOverflingDistance:I
+  
+      iget-boolean v11, p0, Landroid/view/ViewConfiguration;->sHasPermanentMenuKeySet:Z
+***************
+*** 506,511 ****
+--- 514,551 ----
+      .param p0, "context"    # Landroid/content/Context;
+  
+      .prologue
++     invoke-static {p0}, Landroid/view/ViewConfigurationHelper;->get(Landroid/content/Context;)Landroid/view/ViewConfiguration;
++ 
++     move-result-object v0
++ 
++     .local v0, "cfg":Landroid/view/ViewConfiguration;
++     if-eqz v0, :cond_miui_0
++ 
++     move-object v1, v0
++ 
++     :goto_miui_0
++     return-object v1
++ 
++     :cond_miui_0
++     invoke-static {p0}, Landroid/view/ViewConfigurationHelper;->needMiuiConfiguration(Landroid/content/Context;)Z
++ 
++     move-result v4
++ 
++     if-eqz v4, :cond_miui_1
++ 
++     new-instance v0, Landroid/view/ViewConfiguration;
++ 
++     .end local v0    # "cfg":Landroid/view/ViewConfiguration;
++     invoke-direct {v0, p0}, Landroid/view/ViewConfiguration;-><init>(Landroid/content/Context;)V
++ 
++     .restart local v0    # "cfg":Landroid/view/ViewConfiguration;
++     invoke-static {p0, v0}, Landroid/view/ViewConfigurationHelper;->put(Landroid/content/Context;Landroid/view/ViewConfiguration;)V
++ 
++     move-object v1, v0
++ 
++     goto :goto_miui_0
++ 
++     :cond_miui_1
+      invoke-virtual {p0}, Landroid/content/Context;->getResources()Landroid/content/res/Resources;
+  
+      move-result-object v3

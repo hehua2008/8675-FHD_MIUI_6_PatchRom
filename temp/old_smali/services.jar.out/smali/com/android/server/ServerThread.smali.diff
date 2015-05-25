@@ -1,0 +1,104 @@
+*** ./smali/com/android/server/ServerThread.smali	2015-05-02 01:21:39.596406879 +0800
+--- /home/hgm/MIUI6/8675-FHD/temp/new_smali/services.jar.out/./smali/com/android/server/ServerThread.smali	2015-05-02 01:18:06.152413186 +0800
+***************
+*** 691,699 ****
+  
+      invoke-static {v7, v9}, Landroid/util/Slog;->i(Ljava/lang/String;Ljava/lang/String;)I
+  
+!     new-instance v6, Lcom/android/server/LightsService;
+  
+!     invoke-direct {v6, v5}, Lcom/android/server/LightsService;-><init>(Landroid/content/Context;)V
+      :try_end_a
+      .catch Ljava/lang/RuntimeException; {:try_start_a .. :try_end_a} :catch_2
+  
+--- 691,699 ----
+  
+      invoke-static {v7, v9}, Landroid/util/Slog;->i(Ljava/lang/String;Ljava/lang/String;)I
+  
+!     new-instance v6, Lcom/android/server/MiuiLightsService;
+  
+!     invoke-direct {v6, v5}, Lcom/android/server/MiuiLightsService;-><init>(Landroid/content/Context;)V
+      :try_end_a
+      .catch Ljava/lang/RuntimeException; {:try_start_a .. :try_end_a} :catch_2
+  
+***************
+*** 844,856 ****
+  
+      invoke-static {v7, v9}, Landroid/util/Slog;->i(Ljava/lang/String;Ljava/lang/String;)I
+  
+!     new-instance v20, Lcom/android/server/input/InputManagerService;
+  
+      move-object/from16 v0, v20
+  
+      move-object/from16 v1, v21
+  
+!     invoke-direct {v0, v5, v1}, Lcom/android/server/input/InputManagerService;-><init>(Landroid/content/Context;Landroid/os/Handler;)V
+      :try_end_f
+      .catch Ljava/lang/RuntimeException; {:try_start_f .. :try_end_f} :catch_5b
+  
+--- 844,856 ----
+  
+      invoke-static {v7, v9}, Landroid/util/Slog;->i(Ljava/lang/String;Ljava/lang/String;)I
+  
+!     new-instance v20, Lcom/android/server/input/MiuiInputManagerService;
+  
+      move-object/from16 v0, v20
+  
+      move-object/from16 v1, v21
+  
+!     invoke-direct {v0, v5, v1}, Lcom/android/server/input/MiuiInputManagerService;-><init>(Landroid/content/Context;Landroid/os/Handler;)V
+      :try_end_f
+      .catch Ljava/lang/RuntimeException; {:try_start_f .. :try_end_f} :catch_5b
+  
+***************
+*** 1903,1908 ****
+--- 1903,1924 ----
+      move-object/from16 v0, v146
+  
+      invoke-static {v7, v0}, Landroid/os/ServiceManager;->addService(Ljava/lang/String;Landroid/os/IBinder;)V
++ 
++     const-string v7, "miui.usb.service"
++ 
++     new-instance v9, Lcom/miui/server/MiuiUsbService;
++ 
++     invoke-direct {v9, v5}, Lcom/miui/server/MiuiUsbService;-><init>(Landroid/content/Context;)V
++ 
++     invoke-static {v7, v9}, Landroid/os/ServiceManager;->addService(Ljava/lang/String;Landroid/os/IBinder;)V
++ 
++     const-string v7, "miui.os.servicemanager"
++ 
++     new-instance v9, Landroid/os/MiuiServiceManagerInternal;
++ 
++     invoke-direct {v9}, Landroid/os/MiuiServiceManagerInternal;-><init>()V
++ 
++     invoke-static {v7, v9}, Landroid/os/ServiceManager;->addService(Ljava/lang/String;Landroid/os/IBinder;)V
+      :try_end_40
+      .catch Ljava/lang/Throwable; {:try_start_40 .. :try_end_40} :catch_43
+  
+***************
+*** 1943,1948 ****
+--- 1959,1982 ----
+      .restart local v131    # "serial":Lcom/android/server/SerialService;
+      :cond_14
+      :goto_2d
++     const-string v7, "security"
++ 
++     new-instance v9, Lcom/miui/server/SecurityManagerService;
++ 
++     move/from16 v0, v24
++ 
++     invoke-direct {v9, v5, v0}, Lcom/miui/server/SecurityManagerService;-><init>(Landroid/content/Context;Z)V
++ 
++     invoke-static {v7, v9}, Landroid/os/ServiceManager;->addService(Ljava/lang/String;Landroid/os/IBinder;)V
++ 
++     const-string v7, "MiuiInit"
++ 
++     new-instance v9, Lcom/miui/server/MiuiInitServer;
++ 
++     invoke-direct {v9, v5}, Lcom/miui/server/MiuiInitServer;-><init>(Landroid/content/Context;)V
++ 
++     invoke-static {v7, v9}, Landroid/os/ServiceManager;->addService(Ljava/lang/String;Landroid/os/IBinder;)V
++ 
+      :try_start_43
+      const-string v7, "SystemServer"
+  

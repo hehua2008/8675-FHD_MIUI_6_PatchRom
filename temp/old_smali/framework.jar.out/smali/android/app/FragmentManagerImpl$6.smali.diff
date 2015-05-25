@@ -1,0 +1,17 @@
+*** ./smali/android/app/FragmentManagerImpl$6.smali	2015-05-02 01:20:42.680408561 +0800
+--- /home/hgm/MIUI6/8675-FHD/temp/new_smali/framework.jar.out/./smali/android/app/FragmentManagerImpl$6.smali	2015-05-02 01:17:04.516415007 +0800
+***************
+*** 49,54 ****
+--- 49,60 ----
+  
+      iget-object v0, p0, Landroid/app/FragmentManagerImpl$6;->val$finalFragment:Landroid/app/Fragment;
+  
++     iget-boolean v0, v0, Landroid/app/Fragment;->mHidden:Z
++ 
++     if-eqz v0, :cond_0
++ 
++     iget-object v0, p0, Landroid/app/FragmentManagerImpl$6;->val$finalFragment:Landroid/app/Fragment;
++ 
+      iget-object v0, v0, Landroid/app/Fragment;->mView:Landroid/view/View;
+  
+      const/16 v1, 0x8

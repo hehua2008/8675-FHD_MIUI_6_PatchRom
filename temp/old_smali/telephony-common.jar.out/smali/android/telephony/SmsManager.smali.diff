@@ -1,0 +1,21 @@
+*** ./smali/android/telephony/SmsManager.smali	2015-05-02 01:21:52.784406489 +0800
+--- /home/hgm/MIUI6/8675-FHD/temp/new_smali/telephony-common.jar.out/./smali/android/telephony/SmsManager.smali	2015-05-02 01:18:19.816412782 +0800
+***************
+*** 189,194 ****
+--- 189,204 ----
+      return-object v0
+  .end method
+  
++ .method public static getDefault(I)Landroid/telephony/SmsManager;
++     .locals 1
++     .param p0, "slotId"    # I
++ 
++     .prologue
++     sget-object v0, Landroid/telephony/SmsManager;->sInstance:Landroid/telephony/SmsManager;
++ 
++     return-object v0
++ .end method
++ 
+  
+  # virtual methods
+  .method public copyMessageToIcc([B[BI)Z

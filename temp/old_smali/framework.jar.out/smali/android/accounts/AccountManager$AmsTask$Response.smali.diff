@@ -1,0 +1,19 @@
+*** ./smali/android/accounts/AccountManager$AmsTask$Response.smali	2015-05-02 01:20:45.456408479 +0800
+--- /home/hgm/MIUI6/8675-FHD/temp/new_smali/framework.jar.out/./smali/android/accounts/AccountManager$AmsTask$Response.smali	2015-05-02 01:17:07.444414920 +0800
+***************
+*** 107,112 ****
+--- 107,120 ----
+  
+      if-eqz v1, :cond_0
+  
++     invoke-static {v0}, Lmiui/content/pm/ExtraPackageManager;->handleIfContainsXiaomiAccountType(Landroid/content/Intent;)Z
++ 
++     move-result v1
++     if-eqz v1, :cond_miui_0
++ 
++     return-void
++ 
++     :cond_miui_0
+      iget-object v1, p0, Landroid/accounts/AccountManager$AmsTask$Response;->this$1:Landroid/accounts/AccountManager$AmsTask;
+  
+      iget-object v1, v1, Landroid/accounts/AccountManager$AmsTask;->mActivity:Landroid/app/Activity;

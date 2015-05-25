@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <gesture name="C" settingKey="settingC" settingKeyCmd="wakeUp=true&amp;dismissKeyguard=true&amp;intentUriA=#Intent;component=com.yulong.android.contacts.dial/.DialActivity;end&amp;DelayAfterActivity=0&amp;intentUriB=null" />
+    <gesture name="E" settingKey="settingE" settingKeyCmd="wakeUp=true&amp;dismissKeyguard=true&amp;intentUriA=#Intent;component=com.android.browser/.BrowserActivity;end&amp;DelayAfterActivity=0&amp;intentUriB=null" />
+    <gesture name="M" settingKey="settingM" settingKeyCmd="wakeUp=true&amp;dismissKeyguard=true&amp;intentUriA=#Intent;component=com.coolpad.music/com.android.music.MusicPlayerTab;end&amp;DelayAfterActivity=3000&amp;intentUriB=#Intent;action=com.android.music.musicservicecommand;S.command=play;end" />
+    <gesture name="O" settingKey="settingO" settingKeyCmd="wakeUp=true&amp;dismissKeyguard=true&amp;intentUriA=#Intent;component=com.tencent.mobileqq/.activity.SplashActivity;end&amp;DelayAfterActivity=0&amp;intentUriB=null" />
+    <gesture name="W" settingKey="settingW" settingKeyCmd="wakeUp=true&amp;dismissKeyguard=true&amp;intentUriA=#Intent;component=com.tencent.mm/.ui.LauncherUI;end&amp;DelayAfterActivity=0&amp;intentUriB=null" />
+    <gesture name="UP" settingKey="settingUP" settingKeyCmd="wakeUp=true&amp;dismissKeyguard=true&amp;intentUriA=null&amp;DelayAfterActivity=0&amp;intentUriB=null" />
+    <gesture name="DOWN" settingKey="settingDOWN" settingKeyCmd="wakeUp=true&amp;dismissKeyguard=true&amp;intentUriA=#Intent;component=com.android.camera/.Camera;end&amp;DelayAfterActivity=0&amp;intentUriB=null" />
+    <gesture name="LEFT" settingKey="settingLEFT" settingKeyCmd="wakeUp=false&amp;dismissKeyguard=false&amp;intentUriA=null&amp;DelayAfterActivity=0&amp;intentUriB=#Intent;action=com.android.music.musicservicecommand.previous;end" />
+    <gesture name="RIGHT" settingKey="settingRIGHT" settingKeyCmd="wakeUp=false&amp;dismissKeyguard=false&amp;intentUriA=null&amp;DelayAfterActivity=0&amp;intentUriB=#Intent;action=com.android.music.musicservicecommand.next;end" />
+    <gesture name="DOUBLE_CLICK" settingKey="settingDOUBLE_CLICK" settingKeyCmd="wakeUp=true&amp;dismissKeyguard=false&amp;intentUriA=null&amp;DelayAfterActivity=0&amp;intentUriB=null" />
+</resources>

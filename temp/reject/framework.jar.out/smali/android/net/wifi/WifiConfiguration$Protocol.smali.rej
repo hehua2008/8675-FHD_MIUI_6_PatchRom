@@ -1,0 +1,19 @@
+*** WifiConfiguration$Protocol.smali	2015-05-02 01:21:05.220407895 +0800
+--- WifiConfiguration$Protocol.smali	2015-05-02 01:17:29.192414278 +0800
+***************
+*** 29,35 ****
+      .locals 3
+  
+      .prologue
+!     const/4 v0, 0x2
+  
+      new-array v0, v0, [Ljava/lang/String;
+  
+--- 29,35 ----
+      .locals 3
+  
+      .prologue
+!     const/4 v0, 0x3
+  
+      new-array v0, v0, [Ljava/lang/String;
+  

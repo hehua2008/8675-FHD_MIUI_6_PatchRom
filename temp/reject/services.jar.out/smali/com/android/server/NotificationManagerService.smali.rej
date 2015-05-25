@@ -1,0 +1,50 @@
+*** NotificationManagerService.smali	2015-05-02 01:21:35.092407012 +0800
+--- NotificationManagerService.smali	2015-05-02 01:18:01.520413323 +0800
+***************
+*** 3287,3293 ****
+  .end method
+  
+  .method private updateLightsLocked()V
+!     .locals 7
+  
+      .prologue
+      iget-object v5, p0, Lcom/android/server/NotificationManagerService;->mLedNotification:Lcom/android/server/NotificationManagerService$NotificationRecord;
+--- 3287,3293 ----
+  .end method
+  
+  .method private updateLightsLocked()V
+!     .locals 8
+  
+      .prologue
+      iget-object v5, p0, Lcom/android/server/NotificationManagerService;->mLedNotification:Lcom/android/server/NotificationManagerService$NotificationRecord;
+***************
+*** 3327,3333 ****
+  
+      iget-boolean v5, p0, Lcom/android/server/NotificationManagerService;->mScreenOn:Z
+  
+!     if-eqz v5, :cond_3
+  
+      :cond_1
+      iget-object v5, p0, Lcom/android/server/NotificationManagerService;->mNotificationLight:Lcom/android/server/LightsService$Light;
+--- 3327,3347 ----
+  
+      iget-boolean v5, p0, Lcom/android/server/NotificationManagerService;->mScreenOn:Z
+  
+!     if-nez v5, :cond_1
+! 
+!     iget-object v5, p0, Lcom/android/server/NotificationManagerService;->mContext:Landroid/content/Context;
+! 
+!     iget-object v6, p0, Lcom/android/server/NotificationManagerService;->mLedNotification:Lcom/android/server/NotificationManagerService$NotificationRecord;
+! 
+!     iget-object v6, v6, Lcom/android/server/NotificationManagerService$NotificationRecord;->sbn:Landroid/service/notification/StatusBarNotification;
+! 
+!     const-string v7, "_led"
+! 
+!     invoke-static {v5, v6, v7}, Lmiui/util/NotificationFilterHelper;->isAllowed(Landroid/content/Context;Landroid/service/notification/StatusBarNotification;Ljava/lang/String;)Z
+! 
+!     move-result v5
+! 
+!     if-nez v5, :cond_3
+  
+      :cond_1
+      iget-object v5, p0, Lcom/android/server/NotificationManagerService;->mNotificationLight:Lcom/android/server/LightsService$Light;

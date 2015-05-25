@@ -1,0 +1,44 @@
+*** ./smali/com/android/server/MasterClearReceiver.smali	2015-05-02 01:21:39.376406886 +0800
+--- /home/hgm/MIUI6/8675-FHD/temp/new_smali/services.jar.out/./smali/com/android/server/MasterClearReceiver.smali	2015-05-02 01:18:05.920413193 +0800
+***************
+*** 25,35 ****
+      .param p2, "intent"    # Landroid/content/Intent;
+  
+      .prologue
+!     invoke-virtual {p2}, Landroid/content/Intent;->getAction()Ljava/lang/String;
+  
+!     move-result-object v1
+  
+!     const-string v2, "com.google.android.c2dm.intent.RECEIVE"
+  
+      invoke-virtual {v1, v2}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+  
+--- 25,35 ----
+      .param p2, "intent"    # Landroid/content/Intent;
+  
+      .prologue
+!     const-string v1, "com.google.android.c2dm.intent.RECEIVE"
+  
+!     invoke-virtual {p2}, Landroid/content/Intent;->getAction()Ljava/lang/String;
+  
+!     move-result-object v2
+  
+      invoke-virtual {v1, v2}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+  
+***************
+*** 71,77 ****
+  
+      const-string v1, "Reboot"
+  
+!     invoke-direct {v0, p0, v1, p1}, Lcom/android/server/MasterClearReceiver$1;-><init>(Lcom/android/server/MasterClearReceiver;Ljava/lang/String;Landroid/content/Context;)V
+  
+      .local v0, "thr":Ljava/lang/Thread;
+      invoke-virtual {v0}, Ljava/lang/Thread;->start()V
+--- 71,77 ----
+  
+      const-string v1, "Reboot"
+  
+!     invoke-direct {v0, p0, v1, p1, p2}, Lcom/android/server/MasterClearReceiver$1;-><init>(Lcom/android/server/MasterClearReceiver;Ljava/lang/String;Landroid/content/Context;Landroid/content/Intent;)V
+  
+      .local v0, "thr":Ljava/lang/Thread;
+      invoke-virtual {v0}, Ljava/lang/Thread;->start()V

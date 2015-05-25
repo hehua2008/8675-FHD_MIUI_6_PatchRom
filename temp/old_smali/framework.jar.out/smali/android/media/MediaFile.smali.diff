@@ -1,0 +1,93 @@
+*** ./smali/android/media/MediaFile.smali	2015-05-02 01:20:56.256408160 +0800
+--- /home/hgm/MIUI6/8675-FHD/temp/new_smali/framework.jar.out/./smali/android/media/MediaFile.smali	2015-05-02 01:17:19.192414573 +0800
+***************
+*** 413,418 ****
+--- 413,426 ----
+  
+      invoke-static {v0, v4, v1}, Landroid/media/MediaFile;->addFileType(Ljava/lang/String;ILjava/lang/String;)V
+  
++     const-string v0, "APE"
++ 
++     const/16 v1, 0x3e9
++ 
++     const-string v2, "audio/x-monkeys-audio"
++ 
++     invoke-static {v0, v1, v2}, Landroid/media/MediaFile;->addFileType(Ljava/lang/String;ILjava/lang/String;)V
++ 
+      const-string v0, "MPEG"
+  
+      const-string v1, "video/mpeg"
+***************
+*** 1080,1111 ****
+  .end method
+  
+  .method public static isAudioFileType(I)Z
+!     .locals 2
+      .param p0, "fileType"    # I
+  
+      .prologue
+      const/4 v0, 0x1
+  
+      if-lt p0, v0, :cond_0
+  
+      const/16 v1, 0xa
+  
+!     if-le p0, v1, :cond_1
+  
+      :cond_0
+      const/16 v1, 0xb
+  
+!     if-lt p0, v1, :cond_2
+  
+      const/16 v1, 0xd
+  
+!     if-gt p0, v1, :cond_2
+  
+      :cond_1
+      :goto_0
+      return v0
+  
+!     :cond_2
+      const/4 v0, 0x0
+  
+      goto :goto_0
+--- 1088,1126 ----
+  .end method
+  
+  .method public static isAudioFileType(I)Z
+!     .locals 3
+      .param p0, "fileType"    # I
+  
+      .prologue
++     const/16 v2, 0x3e9
++ 
+      const/4 v0, 0x1
+  
+      if-lt p0, v0, :cond_0
+  
+      const/16 v1, 0xa
+  
+!     if-le p0, v1, :cond_2
+  
+      :cond_0
+      const/16 v1, 0xb
+  
+!     if-lt p0, v1, :cond_1
+  
+      const/16 v1, 0xd
+  
+!     if-le p0, v1, :cond_2
+  
+      :cond_1
++     if-lt p0, v2, :cond_3
++ 
++     if-gt p0, v2, :cond_3
++ 
++     :cond_2
+      :goto_0
+      return v0
+  
+!     :cond_3
+      const/4 v0, 0x0
+  
+      goto :goto_0

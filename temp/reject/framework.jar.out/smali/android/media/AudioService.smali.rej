@@ -1,0 +1,49 @@
+*** AudioService.smali	2015-05-02 01:20:56.372408156 +0800
+--- AudioService.smali	2015-05-02 01:17:19.312414570 +0800
+***************
+*** 3417,3422 ****
+      goto :goto_0
+  
+      :cond_a
+      if-ne p1, v5, :cond_0
+  
+      invoke-direct {p0, v4}, Landroid/media/AudioService;->isAfMusicActiveRecently(I)Z
+--- 3444,3460 ----
+      goto :goto_0
+  
+      :cond_a
++     invoke-static {v0, v0}, Landroid/media/AudioSystem;->isStreamActive(II)Z
++ 
++     move-result v3
++ 
++     if-eqz v3, :cond_miui_0
++ 
++     move p1, v0
++ 
++     goto :goto_0
++ 
++     :cond_miui_0
+      if-ne p1, v5, :cond_0
+  
+      invoke-direct {p0, v4}, Landroid/media/AudioService;->isAfMusicActiveRecently(I)Z
+***************
+*** 9973,9978 ****
+      const/4 p1, 0x0
+  
+      :cond_2
+      invoke-virtual {p0}, Landroid/media/AudioService;->getRingerMode()I
+  
+      move-result v0
+--- 10047,10058 ----
+      const/4 p1, 0x0
+  
+      :cond_2
++     iget-object v0, p0, Landroid/media/AudioService;->mContext:Landroid/content/Context;
++ 
++     invoke-static {v0, p1}, Lmiui/util/AudioManagerHelper;->getValidatedRingerMode(Landroid/content/Context;I)I
++ 
++     move-result p1
++ 
+      invoke-virtual {p0}, Landroid/media/AudioService;->getRingerMode()I
+  
+      move-result v0

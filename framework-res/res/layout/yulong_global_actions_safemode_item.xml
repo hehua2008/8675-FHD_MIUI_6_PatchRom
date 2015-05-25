@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="horizontal" android:paddingTop="0.0dip" android:paddingBottom="0.0dip" android:layout_width="fill_parent" android:layout_height="wrap_content" android:minHeight="?listPreferredItemHeight" android:paddingStart="8.0dip"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <ImageView android:layout_gravity="center" android:id="@id/icon" android:layout_width="40.0dip" android:layout_height="40.0dip" android:scaleType="center" android:layout_marginEnd="8.0dip" />
+    <LinearLayout android:layout_gravity="center_vertical" android:orientation="vertical" android:layout_width="204.0dip" android:layout_height="wrap_content">
+        <TextView android:textAppearance="?textAppearanceLarge" android:textSize="16.0dip" android:textColor="@color/yl_global_actions_item_msg" android:gravity="center_vertical" android:layout_gravity="top" android:id="@id/message" android:layout_width="fill_parent" android:layout_height="wrap_content" />
+        <TextView android:textAppearance="?textAppearanceSmall" android:textSize="12.0dip" android:textColor="@color/yl_global_actions_item_status" android:layout_gravity="bottom" android:id="@id/status" android:layout_width="fill_parent" android:layout_height="wrap_content" android:minHeight="26.0dip" />
+        <View android:visibility="invisible" android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+    </LinearLayout>
+    <LinearLayout android:layout_gravity="center_vertical" android:orientation="vertical" android:layout_width="32.0dip" android:layout_height="wrap_content">
+        <CheckBox android:layout_gravity="center" android:id="@id/super_safe_mode" android:focusable="false" android:clickable="false" android:layout_width="fill_parent" android:layout_height="wrap_content" />
+    </LinearLayout>
+</LinearLayout>

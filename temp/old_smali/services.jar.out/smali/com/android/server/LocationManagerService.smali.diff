@@ -1,0 +1,57 @@
+*** ./smali/com/android/server/LocationManagerService.smali	2015-05-02 01:21:34.344407034 +0800
+--- /home/hgm/MIUI6/8675-FHD/temp/new_smali/services.jar.out/./smali/com/android/server/LocationManagerService.smali	2015-05-02 01:18:00.748413345 +0800
+***************
+*** 4985,4991 ****
+  
+      iget-object v1, p0, Lcom/android/server/LocationManagerService;->mAppOps:Landroid/app/AppOpsManager;
+  
+!     invoke-virtual {v1, v0, p1, p2}, Landroid/app/AppOpsManager;->checkOp(IILjava/lang/String;)I
+  
+      move-result v1
+  
+--- 4985,4991 ----
+  
+      iget-object v1, p0, Lcom/android/server/LocationManagerService;->mAppOps:Landroid/app/AppOpsManager;
+  
+!     invoke-virtual {v1, v0, p1, p2}, Landroid/app/AppOpsManager;->noteOpNoThrow(IILjava/lang/String;)I
+  
+      move-result v1
+  
+***************
+*** 7974,7979 ****
+--- 7974,7983 ----
+  
+      invoke-virtual {p0, v5, v0, v9}, Lcom/android/server/LocationManagerService;->checkLocationAccess(ILjava/lang/String;I)Z
+  
++     move-result v1
++ 
++     if-eqz v1, :cond_4
++ 
+      iget-object v13, p0, Lcom/android/server/LocationManagerService;->mLock:Ljava/lang/Object;
+  
+      monitor-enter v13
+***************
+*** 7994,7999 ****
+--- 7998,8004 ----
+      move-result-object v3
+  
+      .local v3, "recevier":Lcom/android/server/LocationManagerService$Receiver;
++     if-eqz v3, :cond_3
+      move-object v1, p0
+  
+      move-object v2, v12
+***************
+*** 8002,8011 ****
+--- 8007,8018 ----
+  
+      invoke-direct/range {v1 .. v6}, Lcom/android/server/LocationManagerService;->requestLocationUpdatesLocked(Landroid/location/LocationRequest;Lcom/android/server/LocationManagerService$Receiver;IILjava/lang/String;)V
+  
++     :cond_3
+      monitor-exit v13
+      :try_end_1
+      .catchall {:try_start_1 .. :try_end_1} :catchall_0
+  
++     :cond_4
+      invoke-static {v10, v11}, Landroid/os/Binder;->restoreCallingIdentity(J)V
+  
+      return-void

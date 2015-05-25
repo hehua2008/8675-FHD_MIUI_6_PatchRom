@@ -1,0 +1,23 @@
+*** ./smali/com/android/server/am/ActivityManagerService$2.smali	2015-05-02 01:21:41.444406825 +0800
+--- /home/hgm/MIUI6/8675-FHD/temp/new_smali/services.jar.out/./smali/com/android/server/am/ActivityManagerService$2.smali	2015-05-02 01:18:08.268413123 +0800
+***************
+*** 283,288 ****
+--- 283,300 ----
+  
+      if-nez v4, :cond_7
+  
++     move-object/from16 v0, p0
++ 
++     iget-object v4, v0, Lcom/android/server/am/ActivityManagerService$2;->this$0:Lcom/android/server/am/ActivityManagerService;
++ 
++     move-object/from16 v0, v31
++ 
++     invoke-static {v4, v0}, Lcom/android/server/am/MiuiActivityManagerService;->showAppCrashDialog(Lcom/android/server/am/ActivityManagerService;Ljava/util/HashMap;)Z
++ 
++     move-result v4
++ 
++     if-nez v4, :cond_6
++ 
+      new-instance v8, Lcom/android/server/am/AppErrorDialog;
+  
+      move-object/from16 v0, p0

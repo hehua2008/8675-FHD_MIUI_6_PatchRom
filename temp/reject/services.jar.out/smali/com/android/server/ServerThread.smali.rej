@@ -1,0 +1,66 @@
+*** ServerThread.smali	2015-05-02 01:21:39.596406879 +0800
+--- ServerThread.smali	2015-05-02 01:18:06.152413186 +0800
+***************
+*** 1903,1908 ****
+      move-object/from16 v0, v146
+  
+      invoke-static {v7, v0}, Landroid/os/ServiceManager;->addService(Ljava/lang/String;Landroid/os/IBinder;)V
+      :try_end_40
+      .catch Ljava/lang/Throwable; {:try_start_40 .. :try_end_40} :catch_43
+  
+--- 1903,1924 ----
+      move-object/from16 v0, v146
+  
+      invoke-static {v7, v0}, Landroid/os/ServiceManager;->addService(Ljava/lang/String;Landroid/os/IBinder;)V
++ 
++     const-string v7, "miui.usb.service"
++ 
++     new-instance v9, Lcom/miui/server/MiuiUsbService;
++ 
++     invoke-direct {v9, v5}, Lcom/miui/server/MiuiUsbService;-><init>(Landroid/content/Context;)V
++ 
++     invoke-static {v7, v9}, Landroid/os/ServiceManager;->addService(Ljava/lang/String;Landroid/os/IBinder;)V
++ 
++     const-string v7, "miui.os.servicemanager"
++ 
++     new-instance v9, Landroid/os/MiuiServiceManagerInternal;
++ 
++     invoke-direct {v9}, Landroid/os/MiuiServiceManagerInternal;-><init>()V
++ 
++     invoke-static {v7, v9}, Landroid/os/ServiceManager;->addService(Ljava/lang/String;Landroid/os/IBinder;)V
+      :try_end_40
+      .catch Ljava/lang/Throwable; {:try_start_40 .. :try_end_40} :catch_43
+  
+***************
+*** 1943,1948 ****
+      .restart local v131    # "serial":Lcom/android/server/SerialService;
+      :cond_14
+      :goto_2d
+      :try_start_43
+      const-string v7, "SystemServer"
+  
+--- 1959,1982 ----
+      .restart local v131    # "serial":Lcom/android/server/SerialService;
+      :cond_14
+      :goto_2d
++     const-string v7, "security"
++ 
++     new-instance v9, Lcom/miui/server/SecurityManagerService;
++ 
++     move/from16 v0, v24
++ 
++     invoke-direct {v9, v5, v0}, Lcom/miui/server/SecurityManagerService;-><init>(Landroid/content/Context;Z)V
++ 
++     invoke-static {v7, v9}, Landroid/os/ServiceManager;->addService(Ljava/lang/String;Landroid/os/IBinder;)V
++ 
++     const-string v7, "MiuiInit"
++ 
++     new-instance v9, Lcom/miui/server/MiuiInitServer;
++ 
++     invoke-direct {v9, v5}, Lcom/miui/server/MiuiInitServer;-><init>(Landroid/content/Context;)V
++ 
++     invoke-static {v7, v9}, Landroid/os/ServiceManager;->addService(Ljava/lang/String;Landroid/os/IBinder;)V
++ 
+      :try_start_43
+      const-string v7, "SystemServer"
+  

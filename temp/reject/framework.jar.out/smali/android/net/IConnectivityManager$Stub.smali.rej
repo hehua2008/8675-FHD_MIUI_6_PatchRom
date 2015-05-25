@@ -1,0 +1,19 @@
+*** IConnectivityManager$Stub.smali	2015-05-02 01:21:03.256407953 +0800
+--- IConnectivityManager$Stub.smali	2015-05-02 01:17:27.080414340 +0800
+***************
+*** 2019,2024 ****
+          0x39 -> :sswitch_39
+          0x3a -> :sswitch_3a
+          0x3b -> :sswitch_3b
+          0x5f4e5446 -> :sswitch_0
+      .end sparse-switch
+  .end method
+--- 2089,2096 ----
+          0x39 -> :sswitch_39
+          0x3a -> :sswitch_3a
+          0x3b -> :sswitch_3b
++         0x3c -> :sswitch_miui_0
++         0x3d -> :sswitch_miui_1
+          0x5f4e5446 -> :sswitch_0
+      .end sparse-switch
+  .end method

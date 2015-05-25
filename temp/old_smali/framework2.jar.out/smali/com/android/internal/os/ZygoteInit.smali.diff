@@ -1,0 +1,40 @@
+*** ./smali/com/android/internal/os/ZygoteInit.smali	2015-05-02 01:21:48.660406611 +0800
+--- /home/hgm/MIUI6/8675-FHD/temp/new_smali/framework2.jar.out/./smali/com/android/internal/os/ZygoteInit.smali	2015-05-02 01:18:15.572412907 +0800
+***************
+*** 450,455 ****
+--- 450,457 ----
+      :try_start_0
+      invoke-static {}, Lcom/android/internal/os/SamplingProfilerIntegration;->start()V
+  
++     invoke-static {}, Lmiui/security/SecurityManager;->init()V
++ 
+      invoke-static {}, Lcom/android/internal/os/ZygoteInit;->registerZygoteSocket()V
+  
+      const/16 v2, 0xbcc
+***************
+*** 1300,1305 ****
+--- 1302,1314 ----
+      return v0
+  .end method
+  
++ .method private static preloadMiuiResources()V
++     .locals 0
++ 
++     .prologue
++     return-void
++ .end method
++ 
+  .method private static preloadOpenGL()V
+      .locals 2
+  
+***************
+*** 1417,1422 ****
+--- 1426,1433 ----
+  
+      invoke-static {v6, v7}, Landroid/util/Log;->i(Ljava/lang/String;Ljava/lang/String;)I
+  
++     invoke-static {}, Lcom/android/internal/os/ZygoteInit;->preloadMiuiResources()V
++ 
+      invoke-static {}, Landroid/os/SystemClock;->uptimeMillis()J
+  
+      move-result-wide v4

@@ -1,0 +1,47 @@
+*** AudioService$VolumeStreamState.smali	2015-05-02 01:20:56.764408145 +0800
+--- AudioService$VolumeStreamState.smali	2015-05-02 01:17:19.748414557 +0800
+***************
+*** 1478,1483 ****
+  
+      move-result p1
+  
+      iget-object v7, p0, Landroid/media/AudioService$VolumeStreamState;->this$0:Landroid/media/AudioService;
+  
+      # getter for: Landroid/media/AudioService;->mCameraSoundForced:Ljava/lang/Boolean;
+--- 1506,1541 ----
+  
+      move-result p1
+  
++     if-nez p1, :cond_miui_0
++ 
++     iget v7, p0, Landroid/media/AudioService$VolumeStreamState;->mStreamType:I
++ 
++     if-nez v7, :cond_miui_0
++ 
++     iget-object v7, p0, Landroid/media/AudioService$VolumeStreamState;->this$0:Landroid/media/AudioService;
++ 
++     # getter for: Landroid/media/AudioService;->mVolumePanel:Lmiui/view/VolumePanel;
++     invoke-static {v7}, Landroid/media/AudioService;->access_mVolumePanel(Landroid/media/AudioService;)Lmiui/view/VolumePanel;
++ 
++     move-result-object v7
++ 
++     invoke-virtual {v7}, Lmiui/view/VolumePanel;->isVoiceMutable()Z
++ 
++     move-result v7
++ 
++     if-eqz v7, :cond_miui_0
++ 
++     invoke-static {}, Landroid/os/Binder;->getCallingUid()I
++ 
++     move-result v7
++ 
++     const/16 v8, 0x3e9
++ 
++     if-eq v7, v8, :cond_miui_0
++ 
++     const/16 p1, 0xa
++ 
++     :cond_miui_0
+      iget-object v7, p0, Landroid/media/AudioService$VolumeStreamState;->this$0:Landroid/media/AudioService;
+  
+      # getter for: Landroid/media/AudioService;->mCameraSoundForced:Ljava/lang/Boolean;

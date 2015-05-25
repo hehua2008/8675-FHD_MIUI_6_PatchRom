@@ -1,0 +1,44 @@
+*** ./smali/com/android/internal/policy/impl/Policy.smali	2015-05-02 01:21:44.928406722 +0800
+--- /home/hgm/MIUI6/8675-FHD/temp/new_smali/android.policy.jar.out/./smali/com/android/internal/policy/impl/Policy.smali	2015-05-02 01:18:11.824413018 +0800
+***************
+*** 164,172 ****
+      .param p1, "context"    # Landroid/content/Context;
+  
+      .prologue
+!     new-instance v0, Lcom/android/internal/policy/impl/PhoneWindow;
+  
+!     invoke-direct {v0, p1}, Lcom/android/internal/policy/impl/PhoneWindow;-><init>(Landroid/content/Context;)V
+  
+      return-object v0
+  .end method
+--- 164,172 ----
+      .param p1, "context"    # Landroid/content/Context;
+  
+      .prologue
+!     new-instance v0, Lcom/android/internal/policy/impl/MiuiPhoneWindow;
+  
+!     invoke-direct {v0, p1}, Lcom/android/internal/policy/impl/MiuiPhoneWindow;-><init>(Landroid/content/Context;)V
+  
+      return-object v0
+  .end method
+***************
+*** 175,183 ****
+      .locals 1
+  
+      .prologue
+!     new-instance v0, Lcom/android/internal/policy/impl/PhoneWindowManager;
+  
+!     invoke-direct {v0}, Lcom/android/internal/policy/impl/PhoneWindowManager;-><init>()V
+  
+      return-object v0
+  .end method
+--- 175,183 ----
+      .locals 1
+  
+      .prologue
+!     new-instance v0, Lcom/android/internal/policy/impl/MiuiPhoneWindowManager;
+  
+!     invoke-direct {v0}, Lcom/android/internal/policy/impl/MiuiPhoneWindowManager;-><init>()V
+  
+      return-object v0
+  .end method

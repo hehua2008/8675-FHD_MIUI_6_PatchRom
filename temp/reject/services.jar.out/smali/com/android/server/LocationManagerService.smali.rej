@@ -1,0 +1,43 @@
+*** LocationManagerService.smali	2015-05-02 01:21:34.344407034 +0800
+--- LocationManagerService.smali	2015-05-02 01:18:00.748413345 +0800
+***************
+*** 7998,8003 ****
+      move-result-object v3
+  
+      .local v3, "recevier":Lcom/android/server/LocationManagerService$Receiver;
+      move-object v1, p0
+  
+      move-object v2, v12
+--- 8002,8008 ----
+      move-result-object v3
+  
+      .local v3, "recevier":Lcom/android/server/LocationManagerService$Receiver;
++     if-eqz v3, :cond_3
+      move-object v1, p0
+  
+      move-object v2, v12
+***************
+*** 8006,8015 ****
+  
+      invoke-direct/range {v1 .. v6}, Lcom/android/server/LocationManagerService;->requestLocationUpdatesLocked(Landroid/location/LocationRequest;Lcom/android/server/LocationManagerService$Receiver;IILjava/lang/String;)V
+  
+      monitor-exit v13
+      :try_end_1
+      .catchall {:try_start_1 .. :try_end_1} :catchall_0
+  
+      invoke-static {v10, v11}, Landroid/os/Binder;->restoreCallingIdentity(J)V
+  
+      return-void
+--- 8011,8022 ----
+  
+      invoke-direct/range {v1 .. v6}, Lcom/android/server/LocationManagerService;->requestLocationUpdatesLocked(Landroid/location/LocationRequest;Lcom/android/server/LocationManagerService$Receiver;IILjava/lang/String;)V
+  
++     :cond_3
+      monitor-exit v13
+      :try_end_1
+      .catchall {:try_start_1 .. :try_end_1} :catchall_0
+  
++     :cond_4
+      invoke-static {v10, v11}, Landroid/os/Binder;->restoreCallingIdentity(J)V
+  
+      return-void

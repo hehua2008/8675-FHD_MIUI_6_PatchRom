@@ -1,0 +1,78 @@
+*** ./smali/com/android/internal/widget/SizeAdaptiveLayout.smali	2015-05-02 01:21:51.892406516 +0800
+--- /home/hgm/MIUI6/8675-FHD/temp/new_smali/framework2.jar.out/./smali/com/android/internal/widget/SizeAdaptiveLayout.smali	2015-05-02 01:18:18.876412810 +0800
+***************
+*** 297,306 ****
+      .prologue
+      const/4 v8, 0x1
+  
+-     const/4 v7, 0x0
+- 
+      const/4 v5, -0x1
+  
+      const/4 v6, 0x0
+  
+      new-instance v3, Landroid/view/View;
+--- 297,306 ----
+      .prologue
+      const/4 v8, 0x1
+  
+      const/4 v5, -0x1
+  
++     const/4 v7, 0x0
++ 
+      const/4 v6, 0x0
+  
+      new-instance v3, Landroid/view/View;
+***************
+*** 365,371 ****
+  
+      new-array v5, v8, [F
+  
+!     aput v6, v5, v7
+  
+      invoke-static {v3, v4, v5}, Landroid/animation/ObjectAnimator;->ofFloat(Ljava/lang/Object;Ljava/lang/String;[F)Landroid/animation/ObjectAnimator;
+  
+--- 365,371 ----
+  
+      new-array v5, v8, [F
+  
+!     aput v7, v5, v6
+  
+      invoke-static {v3, v4, v5}, Landroid/animation/ObjectAnimator;->ofFloat(Ljava/lang/Object;Ljava/lang/String;[F)Landroid/animation/ObjectAnimator;
+  
+***************
+*** 379,385 ****
+  
+      new-array v5, v8, [F
+  
+!     aput v6, v5, v7
+  
+      invoke-static {v3, v4, v5}, Landroid/animation/ObjectAnimator;->ofFloat(Ljava/lang/Object;Ljava/lang/String;[F)Landroid/animation/ObjectAnimator;
+  
+--- 379,385 ----
+  
+      new-array v5, v8, [F
+  
+!     aput v7, v5, v6
+  
+      invoke-static {v3, v4, v5}, Landroid/animation/ObjectAnimator;->ofFloat(Ljava/lang/Object;Ljava/lang/String;[F)Landroid/animation/ObjectAnimator;
+  
+***************
+*** 429,437 ****
+      :cond_1
+      iget-object v3, p0, Lcom/android/internal/widget/SizeAdaptiveLayout;->mModestyPanel:Landroid/view/View;
+  
+!     const/high16 v4, -0x1000000
+! 
+!     invoke-virtual {v3, v4}, Landroid/view/View;->setBackgroundColor(I)V
+  
+      goto :goto_0
+  .end method
+--- 429,435 ----
+      :cond_1
+      iget-object v3, p0, Lcom/android/internal/widget/SizeAdaptiveLayout;->mModestyPanel:Landroid/view/View;
+  
+!     invoke-virtual {v3, v6}, Landroid/view/View;->setBackgroundColor(I)V
+  
+      goto :goto_0
+  .end method

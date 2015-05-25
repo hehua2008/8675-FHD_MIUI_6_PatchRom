@@ -1,0 +1,96 @@
+*** ./smali/android/net/wifi/WifiInfo.smali	2015-05-02 01:21:05.420407889 +0800
+--- /home/hgm/MIUI6/8675-FHD/temp/new_smali/framework.jar.out/./smali/android/net/wifi/WifiInfo.smali	2015-05-02 01:17:29.456414270 +0800
+***************
+*** 54,59 ****
+--- 54,61 ----
+  
+  .field private mSupplicantState:Landroid/net/wifi/SupplicantState;
+  
++ .field private mVendorInfo:Ljava/lang/String;
++ 
+  .field private mWifiSsid:Landroid/net/wifi/WifiSsid;
+  
+  
+***************
+*** 265,270 ****
+--- 267,276 ----
+  
+      iput-boolean v0, p0, Landroid/net/wifi/WifiInfo;->mMeteredHint:Z
+  
++     iget-object v0, p1, Landroid/net/wifi/WifiInfo;->mVendorInfo:Ljava/lang/String;
++ 
++     iput-object v0, p0, Landroid/net/wifi/WifiInfo;->mVendorInfo:Ljava/lang/String;
++ 
+      :cond_0
+      return-void
+  .end method
+***************
+*** 313,318 ****
+--- 319,335 ----
+      return p1
+  .end method
+  
++ .method static synthetic access_mVendorInfo(Landroid/net/wifi/WifiInfo;Ljava/lang/String;)Ljava/lang/String;
++     .locals 0
++     .param p0, "x0"    # Landroid/net/wifi/WifiInfo;
++     .param p1, "x1"    # Ljava/lang/String;
++ 
++     .prologue
++     iput-object p1, p0, Landroid/net/wifi/WifiInfo;->mVendorInfo:Ljava/lang/String;
++ 
++     return-object p1
++ .end method
++ 
+  .method static synthetic access$402(Landroid/net/wifi/WifiInfo;Landroid/net/wifi/SupplicantState;)Landroid/net/wifi/SupplicantState;
+      .locals 0
+      .param p0, "x0"    # Landroid/net/wifi/WifiInfo;
+***************
+*** 611,616 ****
+--- 628,642 ----
+      return-object v0
+  .end method
+  
++ .method public getVendorInfo()Ljava/lang/String;
++     .locals 1
++ 
++     .prologue
++     iget-object v0, p0, Landroid/net/wifi/WifiInfo;->mVendorInfo:Ljava/lang/String;
++ 
++     return-object v0
++ .end method
++ 
+  .method public getWifiSsid()Landroid/net/wifi/WifiSsid;
+      .locals 1
+  
+***************
+*** 738,743 ****
+--- 764,779 ----
+      return-void
+  .end method
+  
++ .method public setVendorInfo(Ljava/lang/String;)V
++     .locals 0
++     .param p1, "vendorInfo"    # Ljava/lang/String;
++ 
++     .prologue
++     iput-object p1, p0, Landroid/net/wifi/WifiInfo;->mVendorInfo:Ljava/lang/String;
++ 
++     return-void
++ .end method
++ 
+  .method public toString()Ljava/lang/String;
+      .locals 4
+  
+***************
+*** 954,959 ****
+--- 990,999 ----
+      :goto_2
+      invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeInt(I)V
+  
++     iget-object v0, p0, Landroid/net/wifi/WifiInfo;->mVendorInfo:Ljava/lang/String;
++ 
++     invoke-virtual {p1, v0}, Landroid/os/Parcel;->writeString(Ljava/lang/String;)V
++ 
+      iget-object v0, p0, Landroid/net/wifi/WifiInfo;->mSupplicantState:Landroid/net/wifi/SupplicantState;
+  
+      invoke-virtual {v0, p1, p2}, Landroid/net/wifi/SupplicantState;->writeToParcel(Landroid/os/Parcel;I)V

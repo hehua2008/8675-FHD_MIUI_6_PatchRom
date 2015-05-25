@@ -1,0 +1,175 @@
+*** PackageManagerService.smali	2015-05-02 01:21:36.216406979 +0800
+--- PackageManagerService.smali	2015-05-02 01:18:02.736413287 +0800
+***************
+*** 917,922 ****
+  
+      invoke-virtual {v2, v3, v4, v5}, Lcom/android/server/pm/Settings;->addSharedUserLPw(Ljava/lang/String;II)Lcom/android/server/pm/SharedUserSetting;
+  
+      const-string v2, "debug.separate_processes"
+  
+      invoke-static {v2}, Landroid/os/SystemProperties;->get(Ljava/lang/String;)Ljava/lang/String;
+--- 917,930 ----
+  
+      invoke-virtual {v2, v3, v4, v5}, Lcom/android/server/pm/Settings;->addSharedUserLPw(Ljava/lang/String;II)Lcom/android/server/pm/SharedUserSetting;
+  
++     move-object/from16 v0, p0
++ 
++     iget-object v2, v0, Lcom/android/server/pm/PackageManagerService;->mSettings:Lcom/android/server/pm/Settings;
++ 
++     const/4 v3, 0x1
++ 
++     invoke-static {v2, v3}, Lcom/android/server/pm/MiuiPackageManagerService;->addMiuiSharedUids(Lcom/android/server/pm/Settings;Z)V
++ 
+      const-string v2, "debug.separate_processes"
+  
+      invoke-static {v2}, Landroid/os/SystemProperties;->get(Ljava/lang/String;)Ljava/lang/String;
+***************
+*** 1610,1615 ****
+  
+      move-result-object v2
+  
+      const-string v3, "/core-libart.jar"
+  
+      invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+--- 1618,1647 ----
+  
+      move-result-object v2
+  
++     const-string v3, "/framework-miui-res.apk"
++ 
++     invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
++ 
++     move-result-object v2
++ 
++     invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
++ 
++     move-result-object v2
++ 
++     invoke-virtual {v8, v2}, Ljava/util/HashSet;->add(Ljava/lang/Object;)Z
++ 
++     new-instance v2, Ljava/lang/StringBuilder;
++ 
++     invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
++ 
++     invoke-virtual/range {v23 .. v23}, Ljava/io/File;->getPath()Ljava/lang/String;
++ 
++     move-result-object v3
++ 
++     invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
++ 
++     move-result-object v2
++ 
+      const-string v3, "/core-libart.jar"
+  
+      invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+***************
+*** 2355,2360 ****
+  
+      iget-object v2, v0, Lcom/android/server/pm/PackageManagerService;->mSettings:Lcom/android/server/pm/Settings;
+  
+      invoke-virtual {v2}, Lcom/android/server/pm/Settings;->pruneSharedUsersLPw()V
+  
+      move-object/from16 v0, p0
+--- 2389,2402 ----
+  
+      iget-object v2, v0, Lcom/android/server/pm/PackageManagerService;->mSettings:Lcom/android/server/pm/Settings;
+  
++     move-object/from16 v0, p0
++ 
++     invoke-static {v0, v2}, Lcom/android/server/pm/MiuiPackageManagerService;->performPreinstallApp(Lcom/android/server/pm/PackageManagerService;Lcom/android/server/pm/Settings;)V
++ 
++     move-object/from16 v0, p0
++ 
++     iget-object v2, v0, Lcom/android/server/pm/PackageManagerService;->mSettings:Lcom/android/server/pm/Settings;
++ 
+      invoke-virtual {v2}, Lcom/android/server/pm/Settings;->pruneSharedUsersLPw()V
+  
+      move-object/from16 v0, p0
+***************
+*** 4671,4677 ****
+      goto/16 :goto_0
+  
+      :cond_6
+!     iget-object v1, p0, Lcom/android/server/pm/PackageManagerService;->mResolveInfo:Landroid/content/pm/ResolveInfo;
+  
+      goto/16 :goto_0
+  
+--- 4713,4721 ----
+      goto/16 :goto_0
+  
+      :cond_6
+!     invoke-static/range {p0 .. p5}, Lcom/android/server/pm/MiuiPackageManagerService;->checkMiuiIntent(Lcom/android/server/pm/PackageManagerService;Landroid/content/Intent;Ljava/lang/String;ILjava/util/List;I)Landroid/content/pm/ResolveInfo;
+! 
+!     move-result-object v1
+  
+      goto/16 :goto_0
+  
+***************
+*** 34878,34883 ****
+      .param p6, "encryptionParams"    # Landroid/content/pm/ContainerEncryptionParams;
+  
+      .prologue
+      iget-object v1, p0, Lcom/android/server/pm/PackageManagerService;->mContext:Landroid/content/Context;
+  
+      const-string v2, "android.permission.INSTALL_PACKAGES"
+--- 35127,35167 ----
+      .param p6, "encryptionParams"    # Landroid/content/pm/ContainerEncryptionParams;
+  
+      .prologue
++     if-nez p1, :cond_miui_0
++ 
++     const-string v1, "PackageManager"
++ 
++     new-instance v2, Ljava/lang/StringBuilder;
++ 
++     invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
++ 
++     const-string v3, "The uri of package "
++ 
++     invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
++ 
++     move-result-object v2
++ 
++     move-object/from16 v0, p4
++ 
++     invoke-virtual {v2, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
++ 
++     move-result-object v2
++ 
++     const-string v3, " is null"
++ 
++     invoke-virtual {v2, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
++ 
++     move-result-object v2
++ 
++     invoke-virtual {v2}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
++ 
++     move-result-object v2
++ 
++     invoke-static {v1, v2}, Landroid/util/Slog;->e(Ljava/lang/String;Ljava/lang/String;)I
++ 
++     return-void
++ 
++     :cond_miui_0
+      iget-object v1, p0, Lcom/android/server/pm/PackageManagerService;->mContext:Landroid/content/Context;
+  
+      const-string v2, "android.permission.INSTALL_PACKAGES"
+***************
+*** 40679,40684 ****
+      :goto_0
+      invoke-static {v0}, Landroid/content/pm/PackageParser;->setCompatibilityModeEnabled(Z)V
+  
+      iget-object v8, p0, Lcom/android/server/pm/PackageManagerService;->mPackages:Ljava/util/HashMap;
+  
+      monitor-enter v8
+--- 40963,40972 ----
+      :goto_0
+      invoke-static {v0}, Landroid/content/pm/PackageParser;->setCompatibilityModeEnabled(Z)V
+  
++     iget-object v7, p0, Lcom/android/server/pm/PackageManagerService;->mContext:Landroid/content/Context;
++ 
++     invoke-static {v7}, Lcom/android/server/pm/MiuiPackageManagerService;->initExtraGuard(Landroid/content/Context;)V
++ 
+      iget-object v8, p0, Lcom/android/server/pm/PackageManagerService;->mPackages:Ljava/util/HashMap;
+  
+      monitor-enter v8

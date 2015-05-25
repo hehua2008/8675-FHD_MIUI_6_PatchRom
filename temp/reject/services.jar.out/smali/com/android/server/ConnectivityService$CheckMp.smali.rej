@@ -1,0 +1,33 @@
+*** ConnectivityService$CheckMp.smali	2015-05-02 01:21:43.416406766 +0800
+--- ConnectivityService$CheckMp.smali	2015-05-02 01:18:10.220413066 +0800
+***************
+*** 2130,2135 ****
+      goto/16 :goto_0
+  
+      :cond_1f
+      :try_start_18
+      new-instance v35, Ljava/lang/StringBuilder;
+  
+--- 2130,2151 ----
+      goto/16 :goto_0
+  
+      :cond_1f
++     const/16 v35, 0xc8
++ 
++     move/from16 v0, v28
++ 
++     move/from16 v1, v35
++ 
++     if-lt v0, v1, :cond_miui_0
++ 
++     const/16 v35, 0x18f
++ 
++     move/from16 v0, v28
++ 
++     move/from16 v1, v35
++ 
++     if-gt v0, v1, :cond_miui_0
++ 
+      :try_start_18
+      new-instance v35, Ljava/lang/StringBuilder;
+  

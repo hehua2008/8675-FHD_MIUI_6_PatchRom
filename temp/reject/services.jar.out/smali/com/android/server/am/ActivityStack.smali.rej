@@ -1,0 +1,21 @@
+*** ActivityStack.smali	2015-05-02 01:21:41.756406815 +0800
+--- ActivityStack.smali	2015-05-02 01:18:08.592413114 +0800
+***************
+*** 6310,6315 ****
+      :cond_2
+      iget-object v9, p0, Lcom/android/server/am/ActivityStack;->mTaskHistory:Ljava/util/ArrayList;
+  
+      invoke-virtual {v9, v8}, Ljava/util/ArrayList;->remove(Ljava/lang/Object;)Z
+  
+      iget-object v9, p0, Lcom/android/server/am/ActivityStack;->mTaskHistory:Ljava/util/ArrayList;
+--- 6384,6393 ----
+      :cond_2
+      iget-object v9, p0, Lcom/android/server/am/ActivityStack;->mTaskHistory:Ljava/util/ArrayList;
+  
++     invoke-static {p0, v9, v8}, Lcom/android/server/am/ActivityStackInjector;->transferOnTopOfHomeForMoveTaskToBackLocked(Lcom/android/server/am/ActivityStack;Ljava/util/ArrayList;Lcom/android/server/am/TaskRecord;)V
++ 
++     iget-object v9, p0, Lcom/android/server/am/ActivityStack;->mTaskHistory:Ljava/util/ArrayList;
++ 
+      invoke-virtual {v9, v8}, Ljava/util/ArrayList;->remove(Ljava/lang/Object;)Z
+  
+      iget-object v9, p0, Lcom/android/server/am/ActivityStack;->mTaskHistory:Ljava/util/ArrayList;

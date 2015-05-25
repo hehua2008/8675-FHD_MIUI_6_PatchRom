@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:gravity="right" android:layout_gravity="right" android:orientation="horizontal" android:id="@id/ctrl_bar_up" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <ImageView android:layout_gravity="center" android:id="@id/func_max" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="2.0dip" android:src="@drawable/func_close_bg" />
+    <ImageView android:layout_gravity="center" android:id="@id/func_swap" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="2.0dip" android:src="@drawable/func_swap_bg" />
+</LinearLayout>

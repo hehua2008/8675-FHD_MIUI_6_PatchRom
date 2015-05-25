@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:gravity="center_horizontal" android:orientation="vertical" android:background="@drawable/ic_mute_bg" android:layout_width="wrap_content" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <ImageView android:id="@id/mute_switch_icon" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="30.0dip" android:layout_marginTop="5.0dip" android:layout_marginRight="30.0dip" />
+    <TextView android:textSize="11.0dip" android:textColor="@color/black" android:gravity="center" android:id="@id/mute_switch_text" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginBottom="5.0dip" />
+</LinearLayout>

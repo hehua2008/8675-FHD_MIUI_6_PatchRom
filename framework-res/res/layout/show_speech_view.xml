@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:gravity="center" android:layout_gravity="bottom|center" android:id="@id/speech_layout" android:visibility="gone" android:layout_width="151.0dip" android:layout_height="151.0dip" android:layout_marginBottom="160.0dip"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <ImageView android:layout_gravity="center" android:id="@id/speech_image_wav" android:background="@drawable/dlg_wave_normal" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+    <ProgressBar android:layout_gravity="center" android:id="@id/speech_progress_wait" android:visibility="gone" android:layout_width="151.0dip" android:layout_height="151.0dip" android:indeterminate="false" android:indeterminateDrawable="@drawable/dlg_progress_round" />
+    <TextView android:textAppearance="?textAppearanceLarge" android:textColor="#ff000000" android:layout_gravity="center" android:id="@id/speech_text_msg" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+</FrameLayout>

@@ -1,0 +1,53 @@
+*** ConnectivityService$FeatureUser.smali	2015-05-02 01:21:31.344407123 +0800
+--- ConnectivityService$FeatureUser.smali	2015-05-02 01:17:57.684413436 +0800
+***************
+*** 180,201 ****
+  
+      const/4 v1, 0x0
+  
+!     # invokes: Lcom/android/server/ConnectivityService;->stopUsingNetworkFeature(Lcom/android/server/ConnectivityService$FeatureUser;Z)I
+!     invoke-static {v0, p0, v1}, Lcom/android/server/ConnectivityService;->access$500(Lcom/android/server/ConnectivityService;Lcom/android/server/ConnectivityService$FeatureUser;Z)I
+  
+      return-void
+  .end method
+  
+  .method public expire()V
+!     .locals 2
+  
+      .prologue
+      iget-object v0, p0, Lcom/android/server/ConnectivityService$FeatureUser;->this$0:Lcom/android/server/ConnectivityService;
+  
+      const/4 v1, 0x0
+  
+!     # invokes: Lcom/android/server/ConnectivityService;->stopUsingNetworkFeature(Lcom/android/server/ConnectivityService$FeatureUser;Z)I
+!     invoke-static {v0, p0, v1}, Lcom/android/server/ConnectivityService;->access$500(Lcom/android/server/ConnectivityService;Lcom/android/server/ConnectivityService$FeatureUser;Z)I
+  
+      return-void
+  .end method
+--- 189,214 ----
+  
+      const/4 v1, 0x0
+  
+!     iget v2, p0, Lcom/android/server/ConnectivityService$FeatureUser;->mSlotId:I
+! 
+!     # invokes: Lcom/android/server/ConnectivityService;->stopUsingNetworkFeature(Lcom/android/server/ConnectivityService$FeatureUser;ZI)I
+!     invoke-static {v0, p0, v1, v2}, Lcom/android/server/ConnectivityService;->access_stopUsingNetworkFeature(Lcom/android/server/ConnectivityService;Lcom/android/server/ConnectivityService$FeatureUser;ZI)I
+  
+      return-void
+  .end method
+  
+  .method public expire()V
+!     .locals 3
+  
+      .prologue
+      iget-object v0, p0, Lcom/android/server/ConnectivityService$FeatureUser;->this$0:Lcom/android/server/ConnectivityService;
+  
+      const/4 v1, 0x0
+  
+!     iget v2, p0, Lcom/android/server/ConnectivityService$FeatureUser;->mSlotId:I
+! 
+!     # invokes: Lcom/android/server/ConnectivityService;->stopUsingNetworkFeature(Lcom/android/server/ConnectivityService$FeatureUser;ZI)I
+!     invoke-static {v0, p0, v1, v2}, Lcom/android/server/ConnectivityService;->access_stopUsingNetworkFeature(Lcom/android/server/ConnectivityService;Lcom/android/server/ConnectivityService$FeatureUser;ZI)I
+  
+      return-void
+  .end method

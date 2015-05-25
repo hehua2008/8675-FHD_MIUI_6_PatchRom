@@ -1,0 +1,21 @@
+*** WifiDisplayController.smali	2015-05-02 01:21:38.316406917 +0800
+--- WifiDisplayController.smali	2015-05-02 01:18:04.784413226 +0800
+***************
+*** 2068,2074 ****
+  
+      iput-object v0, v7, Landroid/net/wifi/p2p/WifiP2pConfig;->deviceAddress:Ljava/lang/String;
+  
+!     iput v3, v7, Landroid/net/wifi/p2p/WifiP2pConfig;->groupOwnerIntent:I
+  
+      iget-object v0, p0, Lcom/android/server/display/WifiDisplayController;->mConnectingDevice:Landroid/net/wifi/p2p/WifiP2pDevice;
+  
+--- 2068,2076 ----
+  
+      iput-object v0, v7, Landroid/net/wifi/p2p/WifiP2pConfig;->deviceAddress:Ljava/lang/String;
+  
+!     const/16 v0, 0xf
+! 
+!     iput v0, v7, Landroid/net/wifi/p2p/WifiP2pConfig;->groupOwnerIntent:I
+  
+      iget-object v0, p0, Lcom/android/server/display/WifiDisplayController;->mConnectingDevice:Landroid/net/wifi/p2p/WifiP2pDevice;
+  

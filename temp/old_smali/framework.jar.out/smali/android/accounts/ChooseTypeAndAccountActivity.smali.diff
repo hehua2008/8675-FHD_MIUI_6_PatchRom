@@ -1,0 +1,44 @@
+*** ./smali/android/accounts/ChooseTypeAndAccountActivity.smali	2015-05-02 01:20:45.896408466 +0800
+--- /home/hgm/MIUI6/8675-FHD/temp/new_smali/framework.jar.out/./smali/android/accounts/ChooseTypeAndAccountActivity.smali	2015-05-02 01:17:07.992414904 +0800
+***************
+*** 818,828 ****
+      :cond_0
+      new-instance v0, Landroid/content/Intent;
+  
+!     const-class v1, Landroid/accounts/ChooseAccountTypeActivity;
+! 
+!     invoke-direct {v0, p0, v1}, Landroid/content/Intent;-><init>(Landroid/content/Context;Ljava/lang/Class;)V
+  
+      .local v0, "intent":Landroid/content/Intent;
+      const/high16 v1, 0x80000
+  
+      invoke-virtual {v0, v1}, Landroid/content/Intent;->setFlags(I)Landroid/content/Intent;
+--- 818,832 ----
+      :cond_0
+      new-instance v0, Landroid/content/Intent;
+  
+!     invoke-direct {v0}, Landroid/content/Intent;-><init>()V
+  
+      .local v0, "intent":Landroid/content/Intent;
++     const-string v1, "com.miui.framework"
++ 
++     const-string v2, "miui.accounts.MiuiChooseAccountTypeActivity"
++ 
++     invoke-virtual {v0, v1, v2}, Landroid/content/Intent;->setClassName(Ljava/lang/String;Ljava/lang/String;)Landroid/content/Intent;
++ 
+      const/high16 v1, 0x80000
+  
+      invoke-virtual {v0, v1}, Landroid/content/Intent;->setFlags(I)Landroid/content/Intent;
+***************
+*** 1037,1042 ****
+--- 1041,1050 ----
+      .local v4, "accountType":Ljava/lang/String;
+      if-eqz v4, :cond_5
+  
++     const/4 v11, 0x1
++ 
++     iput v11, p0, Landroid/accounts/ChooseTypeAndAccountActivity;->mPendingRequest:I
++ 
+      invoke-virtual {p0, v4}, Landroid/accounts/ChooseTypeAndAccountActivity;->runAddAccountForAuthenticator(Ljava/lang/String;)V
+  
+      goto :goto_1

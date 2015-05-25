@@ -1,0 +1,31 @@
+*** ./smali/android/widget/AbsListView$PositionScroller.smali	2015-05-02 01:21:21.584407411 +0800
+--- /home/hgm/MIUI6/8675-FHD/temp/new_smali/framework.jar.out/./smali/android/widget/AbsListView$PositionScroller.smali	2015-05-02 01:17:47.788413728 +0800
+***************
+*** 238,244 ****
+      :goto_1
+      sub-int v31, v15, v17
+  
+!     add-int v28, v31, v8
+  
+      .local v28, "scrollBy":I
+      move-object/from16 v0, p0
+--- 238,256 ----
+      :goto_1
+      sub-int v31, v15, v17
+  
+!     add-int v31, v31, v8
+! 
+!     move-object/from16 v0, p0
+! 
+!     iget-object v0, v0, Landroid/widget/AbsListView$PositionScroller;->this$0:Landroid/widget/AbsListView;
+! 
+!     move-object/from16 v32, v0
+! 
+!     invoke-virtual/range {v32 .. v32}, Landroid/widget/AbsListView;->getVerticalSpacing()I
+! 
+!     move-result v32
+! 
+!     add-int v28, v31, v32
+  
+      .local v28, "scrollBy":I
+      move-object/from16 v0, p0

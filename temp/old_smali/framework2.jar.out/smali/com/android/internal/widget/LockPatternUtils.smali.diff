@@ -1,0 +1,40 @@
+*** ./smali/com/android/internal/widget/LockPatternUtils.smali	2015-05-02 01:21:51.636406523 +0800
+--- /home/hgm/MIUI6/8675-FHD/temp/new_smali/framework2.jar.out/./smali/com/android/internal/widget/LockPatternUtils.smali	2015-05-02 01:18:18.596412818 +0800
+***************
+*** 1845,1850 ****
+--- 1845,1860 ----
+      return v0
+  .end method
+  
++ .method public getKeyguardLockoutAttemptDeadline(I)J
++     .locals 2
++     .param p1, "failedAttempts"    # I
++ 
++     .prologue
++     const-wide/16 v0, -0x1
++ 
++     return-wide v0
++ .end method
++ 
+  .method public getKeyguardStoredPasswordQuality()I
+      .locals 5
+  
+***************
+*** 3932,3937 ****
+--- 3942,3957 ----
+      return-void
+  .end method
+  
++ .method public setKeyguardLockoutAttemptDeadline(I)J
++     .locals 2
++     .param p1, "failedAttempts"    # I
++ 
++     .prologue
++     const-wide/16 v0, -0x1
++ 
++     return-wide v0
++ .end method
++ 
+  .method public setLockPatternEnabled(Z)V
+      .locals 1
+      .param p1, "enabled"    # Z
